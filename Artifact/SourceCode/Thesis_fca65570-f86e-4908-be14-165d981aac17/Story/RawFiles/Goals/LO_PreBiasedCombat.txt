@@ -1,0 +1,28 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+ProcTriggerRegisterForPlayers((TRIGGERGUID)S_LO_PreBiasCombatTrigger_98effea5-4ec0-4e72-a87d-def10549c6a2);
+KBSECTION
+IF
+CharacterEnteredTrigger(_Char, (TRIGGERGUID)S_LO_PreBiasCombatTrigger_98effea5-4ec0-4e72-a87d-def10549c6a2)
+AND
+GlobalGetFlag("GLO_PreBiasedCombat_Triggered", _FlagState)
+AND
+_FlagState == 0
+THEN
+GlobalSetFlag("GLO_PreBiasedCombat_Triggered");
+//IterateParty((CHARACTERGUID)_Char, "ForEachCharacterInParty");
+DebugBreak("Pre Biased Combat Triggered");
+ShowNotification(_Char,"Triggered Pre Biased Combat");
+
+IF
+GlobalFlagSet("GLO_PreBiasedCombat_Triggered")
+THEN
+PROC_SetCurrentCombat(5);
+ProcSpawnDDACombatAtTrigger((TRIGGERGUID)S_LO_PreBiasCombatSpawningArea_53b33ae8-0cb6-4519-ad67-8b16dd01b569, 0.4);
+DebugBreak("Finished Spawning Pre Biased Combat");
+GoalCompleted;
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "LevelOne"

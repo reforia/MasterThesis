@@ -1,0 +1,28 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+ProcTriggerRegisterForPlayers((TRIGGERGUID)S_LO_HouseEntranceCombatTrigger_8ed2be5e-e08e-4768-9d18-29e76849ae4c);
+KBSECTION
+IF
+CharacterEnteredTrigger(_Char, (TRIGGERGUID)S_LO_HouseEntranceCombatTrigger_8ed2be5e-e08e-4768-9d18-29e76849ae4c)
+AND
+GlobalGetFlag("GLO_HouseEntranceCombat_Triggered", _FlagState)
+AND
+_FlagState == 0
+THEN
+GlobalSetFlag("GLO_HouseEntranceCombat_Triggered");
+//IterateParty((CHARACTERGUID)_Char, "ForEachCharacterInParty");
+DebugBreak("House Entrance Combat Triggered");
+ShowNotification(_Char,"Triggered House Entrance Combat");
+
+IF
+GlobalFlagSet("GLO_HouseEntranceCombat_Triggered")
+THEN
+PROC_SetCurrentCombat(9);
+ProcSpawnDDACombatAtTrigger((TRIGGERGUID)S_LO_HouseEntranceCombatSpawningArea_21fa75af-922c-434e-97f2-40c529f4ef9e, 0.6);
+DebugBreak("Finished Spawning House Entrance Combat");
+GoalCompleted;
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "LevelOne"

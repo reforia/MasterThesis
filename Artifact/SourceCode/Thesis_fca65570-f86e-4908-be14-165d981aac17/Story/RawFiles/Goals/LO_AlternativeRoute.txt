@@ -1,0 +1,27 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+GlobalClearFlag("GLO_AlternativeRoute_Determined");
+ProcTriggerRegisterForPlayers((TRIGGERGUID)S_LO_AlternativeRouteTrigger_739a3356-44e2-40ad-8f36-e73eddddc7fe);
+KBSECTION
+IF
+CharacterEnteredTrigger(_Char, (TRIGGERGUID)S_LO_AlternativeRouteTrigger_739a3356-44e2-40ad-8f36-e73eddddc7fe)
+AND
+GlobalGetFlag("GLO_AlternativeRoute_Determined",_FlagState)
+AND
+_FlagState == 0
+THEN
+GlobalSetFlag("GLO_AlternativeRoute_Determined");
+//ProcSpawnTestCombat((TRIGGERGUID)S_LO_TombTestCombatTrigger2_91fd35b1-92a3-4f2b-8228-869dc5fcbb18);
+//ShowNotification(_Char,"Triggered Test Combat 2");
+
+IF
+GlobalFlagSet("GLO_AlternativeRoute_Determined")
+THEN
+ProcDetermineRoute(1);
+DebugBreak("Alternative Route Defined!");
+GoalCompleted;
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "LevelOne"

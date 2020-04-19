@@ -1,0 +1,109 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+DB_AT_MaxPlayer(4);
+//PROC_Initialize_player((CHARACTERGUID)S_GLO_CharacterCreationDummy_001_da072fe7-fdd5-42ae-9139-8bd4b9fca406);
+//DB_AT_IsPlayer((CHARACTERGUID)S_GLO_CharacterCreationDummy_001_da072fe7-fdd5-42ae-9139-8bd4b9fca406);
+//DB_IsPlayer((CHARACTERGUID)S_GLO_CharacterCreationDummy_001_da072fe7-fdd5-42ae-9139-8bd4b9fca406);
+PROC_Initialize_player();
+
+KBSECTION
+// IF
+// ObjectEnteredCombat(_Char, _CombatID)
+// THEN
+// DB_AT_IsPlayer((CHARACTERGUID)_Char);
+// DebugBreak("Character Added To Database");
+
+IF
+ObjectFlagSet("Z_AT_InParty", _Speaker, _Dialog)
+AND
+DialogGetInvolvedNPC(_Dialog, 1, _NPC)
+AND
+CharacterGetDisplayName((CHARACTERGUID)_NPC, _, _Name)
+AND
+StringConcatenate(_Name, " Joined Party!", _Msg)
+AND
+DialogGetInvolvedPlayer(_Dialog, 1, _Player)
+THEN
+NOT DB_AT_IsPlayer((CHARACTERGUID)_Player);
+NOT DB_IsPlayer((CHARACTERGUID)_Player);
+DB_AT_IsPlayer((CHARACTERGUID)_Player);
+DB_IsPlayer((CHARACTERGUID)_Player);
+NOT DB_AT_IsPlayer((CHARACTERGUID)_NPC);
+NOT DB_IsPlayer((CHARACTERGUID)_NPC);
+NOT DB_Origins((CHARACTERGUID)_NPC);
+DB_AT_IsPlayer((CHARACTERGUID)_NPC);
+DB_IsPlayer((CHARACTERGUID)_NPC);
+DB_Origins((CHARACTERGUID)_NPC);
+//CharacterMakePlayer((CHARACTERGUID)_NPC);
+CharacterRecruitCharacter((CHARACTERGUID)_NPC, (CHARACTERGUID)_Player);
+//CharacterApplyHenchmanPreset((CHARACTERGUID)_Speaker, "S_Fighter_Preset");
+ShowNotification((CHARACTERGUID)_Player,_Msg);
+DebugBreak("NPC in party");
+
+IF
+ObjectFlagCleared("Z_AT_InParty", _Speaker, _Dialog)
+THEN
+NOT DB_AT_IsPlayer((CHARACTERGUID)_Speaker);
+NOT DB_IsPlayer((CHARACTERGUID)_Speaker);
+NOT DB_Origins((CHARACTERGUID)_Speaker);
+CharacterMakeNPC((CHARACTERGUID)_Speaker);
+DebugBreak("NPC left party");
+
+IF
+DB_AT_IsPlayer(_)
+THEN
+DebugBreak("DB_AT_IsPlayer Col Added");
+
+
+IF
+CharacterJoinedParty(_Char)
+AND
+DB_AT_MaxPlayer(_MaxPlayer)
+AND
+SysCount("DB_AT_IsPlayer", 1, _PlayerCount)
+AND
+_PlayerCount >= _MaxPlayer
+THEN
+GlobalSetFlag("GEN_AT_MaxPlayerCountReached");
+ShowNotification(_Char, "Party is Full");
+DebugBreak("Party is Full");
+
+IF
+CharacterLeftParty(_Char)
+AND
+SysCount("DB_AT_IsPlayer", 1, _Int)
+AND
+DB_AT_MaxPlayer(_Max)
+AND
+_Int < _Max
+THEN
+GlobalClearFlag("GEN_AT_MaxPlayerCountReached");
+DebugBreak("Party dropped by 1");
+
+PROC
+PROC_Initialize_player()
+AND
+GetCurrentCharacter(1, _Char)
+AND
+DB_Dead(_Char)
+THEN
+CharacterResurrect(_Char);
+DebugBreak("Character Resurrected");
+
+PROC
+PROC_Initialize_player()
+AND
+GetCurrentCharacter(1, _Char)
+AND
+NOT DB_Dead(_Char)
+AND
+NOT DB_AT_IsPlayer(_Char)
+THEN
+DB_AT_IsPlayer(_Char);
+DebugBreak("Character Added to DB");
+
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "__Start"

@@ -1,0 +1,54 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+NOT DB_LevelEnd(1);
+DB_ThesisTime(0, 0);
+
+KBSECTION
+IF
+StoryEvent(_Player, "ItemOnUse")
+AND
+DB_IsPlayer((CHARACTERGUID)_Player)
+THEN
+DB_LevelEnd(1);
+
+IF
+TimerFinished("ThesisTimerTick")
+AND
+NOT DB_LevelEnd(1)
+AND
+DB_ThesisTime(0, _PreviousTime)
+AND
+IntegerSum(_PreviousTime, 1, _NewTime)
+AND
+DB_LO_CurrentCombat(0, _CurCombat, _CurTension)
+THEN
+NOT DB_ThesisTime(0, _PreviousTime);
+DB_ThesisTime(0, _NewTime);
+PROC_InventoryLevelMonitor();
+PROC_StartThesisTimer();
+
+IF
+TimerFinished("ThesisTimerTick")
+AND
+DB_LevelEnd(1)
+AND
+DB_ThesisTime(0, _PreviousTime)
+AND
+IntegertoString(_PreviousTime, _StringTime)
+AND
+StringConcatenate("Total Time Spend In Game: ", _StringTime, _FinalTimeNotify)
+AND
+DB_AT_IsPlayer(_Char)
+THEN
+ShowNotification(_Char, _FinalTimeNotify);
+
+PROC
+PROC_StartThesisTimer()
+THEN
+TimerLaunch("ThesisTimerTick", 1000);
+
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "__Start"

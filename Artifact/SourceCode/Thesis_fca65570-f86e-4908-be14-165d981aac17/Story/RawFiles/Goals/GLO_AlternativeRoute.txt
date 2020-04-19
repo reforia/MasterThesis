@@ -1,0 +1,37 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+
+KBSECTION
+PROC
+ProcDetermineRoute((INTEGER)_Threshold)
+AND
+DB_LO_CurrentCampaignTensionBias(0, _TensionBias)
+AND
+_TensionBias >= _Threshold
+AND
+QryPassedCheck("1")
+THEN
+DebugBreak("WeaponRoute");
+TeleportToPosition((ITEMGUID)S_LO_WeaponRouteBlock_1c043bf3-b68e-43d5-9a97-9c2075acbbf8,0.0,0.0,200.0,"WeaponBlockRemoved", 0, 0);
+DebugBreak("WeaponBlockRemoved");
+
+PROC
+ProcDetermineRoute((INTEGER)_Threshold)
+AND
+DB_LO_CurrentCampaignTensionBias(0, _TensionBias)
+AND
+_TensionBias < _Threshold
+AND
+QryPassedCheck("2")
+AND
+SysCount("DB_AT_IsPlayer", 1, _PlayerCounts)
+THEN
+DebugBreak("HealthRoute");
+TeleportToPosition((ITEMGUID)S_LO_HealthRouteBlock_40827ce6-8223-4f72-bdff-fabbbeb04f88,0.0,0.0,200.0,"HealthBlockRemoved", 0, 0);
+DebugBreak("HealthBlockRemoved");
+Proc_InitializeDDARouteHealthCrate(_PlayerCounts);
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "__Start"

@@ -1,0 +1,29 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+ProcTriggerRegisterForPlayers((TRIGGERGUID)S_LO_BiasedCombat1Trigger_a73ccf40-2b04-4234-a26f-07d916141695);
+KBSECTION
+IF
+CharacterEnteredTrigger(_Char, (TRIGGERGUID)S_LO_BiasedCombat1Trigger_a73ccf40-2b04-4234-a26f-07d916141695)
+AND
+GlobalGetFlag("GLO_BiasedCombat1_Triggered", _FlagState)
+AND
+_FlagState == 0
+THEN
+GlobalSetFlag("GLO_BiasedCombat1_Triggered");
+//IterateParty((CHARACTERGUID)_Char, "ForEachCharacterInParty");
+DebugBreak("Biased Combat Triggered");
+ShowNotification(_Char,"Triggered Biased Combat 1");
+
+IF
+GlobalFlagSet("GLO_BiasedCombat1_Triggered")
+THEN
+PROC_SetCurrentCombat(7);
+ProcSpawnDDACombatAtTrigger((TRIGGERGUID)S_LO_BiasedCombat1SpawningArea_e268c6c9-5043-4d6b-a596-be5cea34ed40, 0.5);
+DebugBreak("Finished Spawning Biased Combat 1");
+GoalCompleted;
+
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "LevelOne"

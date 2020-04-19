@@ -1,0 +1,28 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+ProcTriggerRegisterForPlayers((TRIGGERGUID)S_LO_CaveCombat2Trigger_7d80a14f-9eda-40fa-bee1-8763aa51d44b);
+KBSECTION
+IF
+CharacterEnteredTrigger(_Char, (TRIGGERGUID)S_LO_CaveCombat2Trigger_7d80a14f-9eda-40fa-bee1-8763aa51d44b)
+AND
+GlobalGetFlag("GLO_CaveCombat2_Triggered", _FlagState)
+AND
+_FlagState == 0
+THEN
+GlobalSetFlag("GLO_CaveCombat2_Triggered");
+//IterateParty((CHARACTERGUID)_Char, "ForEachCharacterInParty");
+DebugBreak("Cave Combat 2 Triggered");
+ShowNotification(_Char,"Triggered Cave Combat 2");
+
+IF
+GlobalFlagSet("GLO_CaveCombat2_Triggered")
+THEN
+PROC_SetCurrentCombat(13);
+ProcSpawnDDACombatAtTrigger((TRIGGERGUID)S_LO_CaveCombat2SpawnArea_86fc586e-d0ce-4b22-8497-2060d8502bbe, 0.8);
+DebugBreak("Finished Spawning Cave Combat 2");
+GoalCompleted;
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "LevelOne"

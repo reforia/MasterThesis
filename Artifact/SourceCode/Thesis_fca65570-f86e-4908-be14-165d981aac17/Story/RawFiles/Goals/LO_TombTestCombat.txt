@@ -1,0 +1,185 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+ProcTriggerRegisterForPlayers((TRIGGERGUID)S_LO_TombTestCombatTrigger_df530c99-34b4-4597-a537-78e14c0eee8a);
+
+KBSECTION
+IF
+CharacterEnteredTrigger(_Char, (TRIGGERGUID)S_LO_TombTestCombatTrigger_df530c99-34b4-4597-a537-78e14c0eee8a)
+AND
+GlobalGetFlag("GLO_TombCombatTest_Triggered",_FlagState)
+AND
+_FlagState == 0
+THEN
+//IterateParty((CHARACTERGUID)_Char, "ForEachCharacterInParty");
+GlobalSetFlag("GLO_TombCombatTest1_Triggered");
+DebugBreak("Character Entered Trigger 1");
+//ShowNotification(_Char,"Triggered Test Combat 1");
+
+IF
+GlobalFlagSet("GLO_TombCombatTest1_Triggered")
+THEN
+PROC_SetCurrentCombat(1);
+ProcSpawnDDACombatAtTrigger((TRIGGERGUID)S_LO_TombTestCombatTrigger_df530c99-34b4-4597-a537-78e14c0eee8a, 0.3);
+
+
+// IF
+// CharacterEnteredTrigger(_Char, (TRIGGERGUID)S_LO_TombTestCombatTrigger_df530c99-34b4-4597-a537-78e14c0eee8a)
+// AND
+// GlobalGetFlag("GLO_TombCombatTest_Triggered",_FlagState)
+// AND
+// _FlagState == 0
+// THEN
+// GlobalSetFlag("GLO_TombCombatTest_Triggered");
+// //ProcSpawnTestCombat((TRIGGERGUID)S_LO_Wave1_TestCombatTrigger_351e214c-d3db-41e9-b616-86c651d0bae0);
+// IterateParty((CHARACTERGUID)_Char, "ForEachCharacterInParty");
+
+// IF
+// StoryEvent(_Char, "ForEachCharacterInParty")
+// AND
+// GetRandomPositionInTrigger((TRIGGERGUID)S_LO_Wave1_TestCombatTrigger_351e214c-d3db-41e9-b616-86c651d0bae0,_X,_Y,_Z)
+// AND
+// SysCount("DB_MidTension", 3, _Count)
+// AND
+// Random(_Count,_Random)
+// AND
+// DB_MidTension(_Random, _, _OutID)
+// AND
+// CharacterCreateAtPosition(_X,_Y,_Z,_OutID,1,_Created)
+// AND
+// CharacterGetLevel((CHARACTERGUID)_Char, _Level)
+// THEN
+// CharacterLevelUpTo(_Created, _Level);
+// ShowNotification((CHARACTERGUID)_Char,"EnemySpawned");
+
+
+// IF
+// ObjectLeftCombat(_Char, _CombatID)
+// AND
+// DB_AT_IsPlayer((CHARACTERGUID)_Char)
+// AND
+// SysCount("DB_AT_IsPlayer", 1, _NumPartyMembers)
+// AND
+// _NumPartyMembers == 1
+// AND
+// CharacterGetHitpointsPercentage((CHARACTERGUID)_Char, _Pct)
+// AND
+// IntegertoString(_NumPartyMembers, _DebugOut)
+// AND
+// StringConcatenate(_DebugOut, " DDA Bias Factor Gathered", _Out)
+// THEN
+// DebugBreak("Test Combat Finished");
+// ProcSetTensionBias(_Pct);
+// ShowNotification((CHARACTERGUID)_Char,_Out);
+// //CharacterSetHitpointsPercentage(_Char, 0.9);
+// GoalCompleted;
+
+// IF
+// ObjectLeftCombat(_Char, _CombatID)
+// AND
+// DB_AT_IsPlayer((CHARACTERGUID)_Char)
+// AND
+// SysCount("DB_AT_IsPlayer", 1, _NumPartyMembers)
+// AND
+// _NumPartyMembers == 2
+// AND
+// CharacterGetHitpointsPercentage((CHARACTERGUID)_Char, _Pct)
+// AND
+// CombatGetInvolvedPartyMember(_CombatID, 1, _Char2)
+// AND
+// CharacterGetHitpointsPercentage(_Char2, _Pct2)
+// AND
+// RealSum(_Pct, _Pct2, _Sum)
+// AND
+// RealDivide(_Sum, 2.0, _AvgPct)
+// AND
+// IntegertoString(_NumPartyMembers, _DebugOut)
+// AND
+// StringConcatenate(_DebugOut, " DDA Bias Factor Gathered", _Out)
+// THEN
+// DebugBreak("Test Combat Finished");
+// ProcSetTensionBias(_AvgPct);
+// ShowNotification((CHARACTERGUID)_Char,_Out);
+// //CharacterSetHitpointsPercentage(_Char, 0.9);
+// GoalCompleted;
+
+// IF
+// ObjectLeftCombat(_Char, _CombatID)
+// AND
+// DB_AT_IsPlayer((CHARACTERGUID)_Char)
+// AND
+// SysCount("DB_AT_IsPlayer", 1, _NumPartyMembers)
+// AND
+// _NumPartyMembers == 3
+// AND
+// CharacterGetHitpointsPercentage((CHARACTERGUID)_Char, _Pct)
+// AND
+// CombatGetInvolvedPartyMember(_CombatID, 1, _Char2)
+// AND
+// CharacterGetHitpointsPercentage(_Char2, _Pct2)
+// AND
+// CombatGetInvolvedPartyMember(_CombatID, 2, _Char3)
+// AND
+// CharacterGetHitpointsPercentage(_Char3, _Pct3)
+// AND
+// RealSum(_Pct, _Pct2, _TempSum)
+// AND
+// RealSum(_TempSum, _Pct3, _Sum)
+// AND
+// RealDivide(_Sum, 3.0, _AvgPct)
+// AND
+// IntegertoString(_NumPartyMembers, _DebugOut)
+// AND
+// StringConcatenate(_DebugOut, " DDA Bias Factor Gathered", _Out)
+// THEN
+// DebugBreak("Test Combat Finished");
+// ProcSetTensionBias(_AvgPct);
+// ShowNotification((CHARACTERGUID)_Char,_Out);
+// //CharacterSetHitpointsPercentage(_Char, 0.9);
+// GoalCompleted;
+
+// IF
+// ObjectLeftCombat(_Char, _CombatID)
+// AND
+// DB_AT_IsPlayer((CHARACTERGUID)_Char)
+// AND
+// CombatGetNumberOfInvolvedPartyMembers(_CombatID, _NumPartyMembers)
+// AND
+// _NumPartyMembers >= 4
+// AND
+// CharacterGetHitpointsPercentage((CHARACTERGUID)_Char, _Pct)
+// AND
+// CombatGetInvolvedPartyMember(_CombatID, 1, _Char2)
+// AND
+// CharacterGetHitpointsPercentage(_Char2, _Pct2)
+// AND
+// CombatGetInvolvedPartyMember(_CombatID, 2, _Char3)
+// AND
+// CharacterGetHitpointsPercentage(_Char3, _Pct3)
+// AND
+// CombatGetInvolvedPartyMember(_CombatID, 3, _Char4)
+// AND
+// CharacterGetHitpointsPercentage(_Char4, _Pct4)
+// AND
+// RealSum(_Pct, _Pct2, _TempSum)
+// AND
+// RealSum(_TempSum, _Pct3, _TempSum2)
+// AND
+// RealSum(_TempSum2, _Pct4, _Sum)
+// AND
+// RealDivide(_Sum, 4.0, _AvgPct)
+// AND
+// IntegertoString(_NumPartyMembers, _DebugOut)
+// AND
+// StringConcatenate(_DebugOut, " DDA Bias Factor Gathered", _Out)
+// THEN
+// DebugBreak("Test Combat Finished");
+// ProcSetTensionBias(_AvgPct);
+// ShowNotification((CHARACTERGUID)_Char,_Out);
+// CharacterSetHitpointsPercentage(_Char, 0.9);
+// GoalCompleted;
+
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "LevelOne"

@@ -1,0 +1,713 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+DB_LO_CurrentInventoryLevel(0, 0.0);
+DB_LO_PotionAlreadySpawned(0, 0);
+DB_RemainHealthPointForSpawnPotion(0, 0);
+//HP 30: CON_Potion_A_Health_944e4b8c-1736-4ff6-8fa6-d7ceda9941da
+//HP(M) 120: CON_Potion_A_Health_Medium_d2781168-5862-4e6d-95a3-47d9bd9e8dba
+//HP(L) 290: CON_Potion_A_Health_Large_68b40462-247a-44fd-87d0-c2eea2f49ed1
+//HP(H) 650: CON_Potion_A_Health_Huge_445fefc5-c643-4798-a495-e45a021d7ef4
+//HP(G) 1220: CON_Potion_A_Health_Giant_654ca67d-d60a-415d-b1d6-8727faa9e7d5
+
+//Poison: CON_Potion_Poison_A_8122de3c-a331-44a4-b51a-6767a778776f
+//Poison(M): CON_Potion_Poison_Medium_A_3b5c5a91-00ab-4a86-bc30-b59e14951163
+//Poison(L): CON_Potion_Poison_Large_A_6d9420d8-cbf6-444f-ac42-c535a7df99f7
+//Poison(H): CON_Potion_Poison_Huge_A_5b31c4c8-88cd-4d86-9c23-f762126ee7f0
+//Poison(G): CON_Potion_Poison_Giant_A_f7d43db4-96b4-4db1-b83c-b21987b63a65
+
+//PhysicalArmorPotion(M): CON_Potion_PhysicalArmor_Boost_Medium_A_43a871bb-2e3b-47b7-9635-a6653c52fde5
+//MagicalArmorPotion(M): CON_Potion_MagicArmor_Boost_Medium_A_aaaca555-98dc-4b95-a9e2-6349c2d67f56
+
+//IdentifyGlass: TOOL_IdentifyingGlass_A_32288ce4-3d8d-46b3-a655-598350a96201
+
+//ResurrectScrolls: Scroll_Skill_Source_Resurrect_60180909-ee47-4d1c-b81c-e43bd8fdce1e
+
+//Initialize All Containers Opened/Closed Status
+DB_CONTAINER_OPENED(FUR_LO_StartBackgroundStoryDesk_000_28487d02-86c4-4129-b74a-f7838b748dac, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Chest_A_000_1df27324-2fc6-422e-b1e4-c586bdd2940a, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Chest_Rich_A_000_cdd1c6ac-64bb-4aa1-9d75-46b1061d7b6d, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Chest_Rich_A_001_df97f5c0-71d8-4d6e-8e00-ac0a2be398c0, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Chest_Rich_A_002_2f00f62b-9679-4445-b74d-d54a67c229ed, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Chest_Used_A_000_616cf8d4-796b-4edb-8d05-24ea77be336f, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Chest_Used_A_001_85ad83a5-c568-4b0d-b97f-77e2be9b9fc6, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Chest_Used_A_002_53a2f1ff-dd55-48a4-95e8-e405331eb81f, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Crate_A_000_41c82a7c-9b87-46c6-9ea2-8dbe8d302d9f, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Crate_A_001_613bfa05-912b-4398-99d2-1f1de6298d6f, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Crate_A_002_59cfcf3e-687a-496b-b917-34219e9edabd, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Crate_A_003_d2a6650f-d1e6-447e-a695-83f74d57f46a, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Crate_A_004_aba948c2-1746-402c-ad86-a3066c960d0b, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Crate_A_005_bcaccecb-df8f-46e6-9837-94db2d39091c, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Crate_A_006_350ca34a-d2f5-4f5b-a335-0a44da6d0f67, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Crate_A_008_f905f089-88ae-4c38-ae87-80bc985b910f, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Crate_A_009_fa690f9a-cb7f-4601-b221-400a4f0940a4, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Crate_A_010_1aef52df-0400-475e-9f75-9d11231e069d, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Crate_A_Metal_A_000_0f26642e-4036-4494-b2bb-3ea5627776f4, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Crate_A_Metal_A_001_90c2d6a7-2280-4fec-b73c-18d879ca1734, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Crate_A_Metal_A_002_05b7dd66-ac06-4d07-bf29-a0f7391a7483, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Crate_A_Metal_A_003_f0c6e651-7d97-422d-a37e-2e5f41158f95, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Crate_A_Metal_A_004_c1ab093a-af99-44e1-8f2e-3e5b24df3f70, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Crate_A_Metal_A_005_2f60b8ce-073a-4f49-b691-68958c8be914, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Crate_B_000_a8cc6c73-bc8a-4cf9-a65c-277bd3f3dc6d, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Crate_B_001_83fc0caf-e9ee-4e5c-b6e9-2868ae72ae22, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Crate_B_002_e642c760-2087-4578-939d-c3cbe0e58979, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Crate_B_003_4185fab3-4414-4b34-8b28-13d2c4f6b280, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Crate_B_004_3858db38-2f93-440c-ba85-dba08ce61748, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Crate_B_005_ee9868f6-352b-4b4a-8791-00567d1bd400, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Crate_B_006_6f1a6480-78c9-43e0-af75-7f007784e3d4, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Crate_B_007_787da7b1-3c70-4d50-9092-340280e814d0, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Crate_B_008_5d235463-e85a-4e53-ba5c-c520648888fc, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Citz_Crate_B_010_951ab1e0-702d-4c48-95ad-d2c0a8f89d8a, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Tomb_B_000_753b40f8-dd3e-4295-977a-866ff44c4b49, 0);
+DB_CONTAINER_OPENED(CONT_Humans_Tomb_G_000_fb07977d-0a58-4c8d-b738-199774ce15af, 0);
+DB_CONTAINER_OPENED(CONT_JewelleryBox_000_9cf06c12-b9f6-4d54-b401-bb56b57df599, 0);
+
+// _CombatID, _Inventories
+DB_LO_AvailableInventoriesAroundCombat(0, CONT_Humans_Citz_Crate_A_008_f905f089-88ae-4c38-ae87-80bc985b910f);
+DB_LO_AvailableInventoriesAroundCombat(0, CONT_Humans_Tomb_B_000_753b40f8-dd3e-4295-977a-866ff44c4b49);
+DB_LO_AvailableInventoriesAroundCombat(2, CONT_Humans_Citz_Crate_A_009_fa690f9a-cb7f-4601-b221-400a4f0940a4);
+DB_LO_AvailableInventoriesAroundCombat(2, CONT_Humans_Tomb_G_000_fb07977d-0a58-4c8d-b738-199774ce15af);
+DB_LO_AvailableInventoriesAroundCombat(4, CONT_Humans_Citz_Crate_A_Metal_A_004_c1ab093a-af99-44e1-8f2e-3e5b24df3f70);
+DB_LO_AvailableInventoriesAroundCombat(6, CONT_Humans_Citz_Crate_A_002_59cfcf3e-687a-496b-b917-34219e9edabd);
+DB_LO_AvailableInventoriesAroundCombat(6, CONT_Humans_Citz_Crate_A_000_41c82a7c-9b87-46c6-9ea2-8dbe8d302d9f);
+DB_LO_AvailableInventoriesAroundCombat(6, CONT_Humans_Citz_Crate_A_Metal_A_005_2f60b8ce-073a-4f49-b691-68958c8be914);
+DB_LO_AvailableInventoriesAroundCombat(6, CONT_Humans_Citz_Crate_A_001_613bfa05-912b-4398-99d2-1f1de6298d6f);
+DB_LO_AvailableInventoriesAroundCombat(8, CONT_Humans_Citz_Chest_Used_A_001_85ad83a5-c568-4b0d-b97f-77e2be9b9fc6);
+DB_LO_AvailableInventoriesAroundCombat(8, CONT_Humans_Citz_Crate_A_010_1aef52df-0400-475e-9f75-9d11231e069d);
+DB_LO_AvailableInventoriesAroundCombat(8, CONT_JewelleryBox_000_9cf06c12-b9f6-4d54-b401-bb56b57df599);
+DB_LO_AvailableInventoriesAroundCombat(10, CONT_Humans_Citz_Crate_B_010_951ab1e0-702d-4c48-95ad-d2c0a8f89d8a);
+DB_LO_AvailableInventoriesAroundCombat(10, CONT_Humans_Citz_Chest_Rich_A_000_cdd1c6ac-64bb-4aa1-9d75-46b1061d7b6d);
+DB_LO_AvailableInventoriesAroundCombat(10, CONT_Humans_Citz_Chest_Used_A_000_616cf8d4-796b-4edb-8d05-24ea77be336f);
+DB_LO_AvailableInventoriesAroundCombat(10, CONT_Humans_Citz_Crate_A_Metal_A_003_f0c6e651-7d97-422d-a37e-2e5f41158f95);
+DB_LO_AvailableInventoriesAroundCombat(10, CONT_Humans_Citz_Crate_A_Metal_A_002_05b7dd66-ac06-4d07-bf29-a0f7391a7483);
+DB_LO_AvailableInventoriesAroundCombat(10, CONT_Humans_Citz_Crate_A_Metal_A_001_90c2d6a7-2280-4fec-b73c-18d879ca1734);
+DB_LO_AvailableInventoriesAroundCombat(10, CONT_Humans_Citz_Crate_A_Metal_A_000_0f26642e-4036-4494-b2bb-3ea5627776f4);
+DB_LO_AvailableInventoriesAroundCombat(12, CONT_Humans_Citz_Crate_A_006_350ca34a-d2f5-4f5b-a335-0a44da6d0f67);
+DB_LO_AvailableInventoriesAroundCombat(12, CONT_Humans_Citz_Crate_A_003_d2a6650f-d1e6-447e-a695-83f74d57f46a);
+DB_LO_AvailableInventoriesAroundCombat(12, CONT_Humans_Citz_Crate_B_000_a8cc6c73-bc8a-4cf9-a65c-277bd3f3dc6d);
+DB_LO_AvailableInventoriesAroundCombat(12, CONT_Humans_Citz_Crate_A_004_aba948c2-1746-402c-ad86-a3066c960d0b);
+DB_LO_AvailableInventoriesAroundCombat(12, CONT_Humans_Citz_Crate_A_005_bcaccecb-df8f-46e6-9837-94db2d39091c);
+DB_LO_AvailableInventoriesAroundCombat(14, CONT_Humans_Citz_Crate_B_005_ee9868f6-352b-4b4a-8791-00567d1bd400);
+DB_LO_AvailableInventoriesAroundCombat(14, CONT_Humans_Citz_Chest_Used_A_002_53a2f1ff-dd55-48a4-95e8-e405331eb81f);
+DB_LO_AvailableInventoriesAroundCombat(16, CONT_Humans_Citz_Crate_B_007_787da7b1-3c70-4d50-9092-340280e814d0);
+DB_LO_AvailableInventoriesAroundCombat(16, CONT_Humans_Citz_Crate_B_008_5d235463-e85a-4e53-ba5c-c520648888fc);
+DB_LO_AvailableInventoriesAroundCombat(16, CONT_Humans_Citz_Crate_B_006_6f1a6480-78c9-43e0-af75-7f007784e3d4);
+DB_LO_AvailableInventoriesAroundCombat(16, CONT_Humans_Citz_Chest_A_000_1df27324-2fc6-422e-b1e4-c586bdd2940a);
+
+DB_LO_DesiredInventoryLevel(-1, 1.0); // Pre-Game
+DB_LO_DesiredInventoryLevel(0, 2.0); // initial
+DB_LO_DesiredInventoryLevel(1, 2.0); // C1Ent
+DB_LO_DesiredInventoryLevel(2, 1.65); // C1Ext
+DB_LO_DesiredInventoryLevel(3, 2.15); // C2Ent
+DB_LO_DesiredInventoryLevel(4, 1.80); // C2Ext
+DB_LO_DesiredInventoryLevel(5, 2.25); // C3Ent
+DB_LO_DesiredInventoryLevel(6, 1.85); // C3Ext
+DB_LO_DesiredInventoryLevel(7, 2.30); // C4Ent
+DB_LO_DesiredInventoryLevel(8, 1.80); // C4Ext
+DB_LO_DesiredInventoryLevel(9, 2.20); // C5Ent
+DB_LO_DesiredInventoryLevel(10, 1.65); // C5Ext
+DB_LO_DesiredInventoryLevel(11, 2.05); // C6Ent
+DB_LO_DesiredInventoryLevel(12, 1.39); // C6Ext
+DB_LO_DesiredInventoryLevel(13, 1.74); // C7Ent
+DB_LO_DesiredInventoryLevel(14, 1.08); // C7Ext
+DB_LO_DesiredInventoryLevel(15, 1.38); // C8Ent
+DB_LO_DesiredInventoryLevel(16, 0.05); // C8Ext
+
+//PreInventory: FUR_LO_StartBackgroundStoryDesk_000_28487d02-86c4-4129-b74a-f7838b748dac
+//ItemTemplateAddTo("BOOK_FO_Book_Background_d6c378b8-d2c8-430f-adef-826736c79e75", FUR_LO_StartBackgroundStoryDesk_000_28487d02-86c4-4129-b74a-f7838b748dac, 1, 0);
+//ItemTemplateAddTo("FUR_Humans_Camping_Sleepingbag_B_4d7216c9-c21e-4ab0-b98e-97d744798912", FUR_LO_StartBackgroundStoryDesk_000_28487d02-86c4-4129-b74a-f7838b748dac, 1, 0);
+
+//Combat1Tomb: CONT_Humans_Tomb_B_000_753b40f8-dd3e-4295-977a-866ff44c4b49
+
+//Combat2Tomb: CONT_Humans_Tomb_G_000_fb07977d-0a58-4c8d-b738-199774ce15af
+
+//Combat3Crate1: CONT_Humans_Citz_Crate_A_000_41c82a7c-9b87-46c6-9ea2-8dbe8d302d9f
+//Combat3Crate2: CONT_Humans_Citz_Crate_A_001_613bfa05-912b-4398-99d2-1f1de6298d6f
+//Combat3Crate3: CONT_Humans_Citz_Crate_A_002_59cfcf3e-687a-496b-b917-34219e9edabd
+
+//Combat4Crate: CONT_Humans_Citz_Chest_Used_A_001_85ad83a5-c568-4b0d-b97f-77e2be9b9fc6
+//Combat4Jewelry: CONT_JewelleryBox_000_9cf06c12-b9f6-4d54-b401-bb56b57df599
+
+//Combat5Crate: CONT_Humans_Citz_Chest_Rich_A_000_cdd1c6ac-64bb-4aa1-9d75-46b1061d7b6d
+//Combat5GardenCrate: CONT_Humans_Citz_Chest_Used_A_000_616cf8d4-796b-4edb-8d05-24ea77be336f
+
+//Combat7Crate: CONT_Humans_Citz_Chest_Used_A_002_53a2f1ff-dd55-48a4-95e8-e405331eb81f
+
+//AlternateRouteDefensive: CONT_Humans_Citz_Chest_Rich_A_001_df97f5c0-71d8-4d6e-8e00-ac0a2be398c0
+//DB_LO_SelectedInventoryInCurrentCombat((ITEMGUID)FUR_LO_StartBackgroundStoryDesk_000_28487d02-86c4-4129-b74a-f7838b748dac);
+
+KBSECTION
+IF
+ItemOpened(_Item)
+AND
+DB_CONTAINER_OPENED(_Item, 0)
+THEN
+NOT DB_CONTAINER_OPENED(_Item, 0);
+DB_CONTAINER_OPENED(_Item, 1);
+DebugBreak("Critical Dynamic Container Opened!");
+//Proc_TrySpawnDDAPotionsInObject(_Item);
+
+IF
+ItemOpened(_Item)
+AND
+DB_CONTAINER_OPENED(_Item, 1)
+THEN
+DebugBreak("Critical Dynamic Container Already Opened! No Modification Should Be Done Any More!");
+
+PROC
+Proc_TrySpawnDDAPotionsInObject((GUIDSTRING)_Item)
+AND
+QryPassedCheck("Start Try Spawn DDA Potion Evaluation Process")
+AND
+DB_LO_PotionAlreadySpawned(0, 0)
+AND
+DB_LO_CurrentCombat(0, _CurCombat, _)
+AND
+DB_LO_DesiredInventoryLevel(_CurCombat, _DesiredInventoryLevel)
+AND
+QryGetCurrentInventoryLevel()
+AND
+DB_LO_CurrentInventoryLevel(0, _CurInventoryLevel)
+AND
+RealSubtract(_CurInventoryLevel, _DesiredInventoryLevel, _InventoryLevelBias)
+AND
+Integer(_InventoryLevelBias, _IntegerTemp)
+AND
+IntegertoString(_IntegerTemp, _StringTemp)
+AND
+QryPassedCheck("Printing Out Inventory Level Bias")
+AND
+QryPassedCheck(_StringTemp)
+AND
+_InventoryLevelBias < 0
+THEN
+DebugBreak("Inventory Level Bias less than 0, Spawning logic triggered");
+Proc_ExecuteLogicToSpawnDDAPotionsInObjectByInventoryLevelBias(_InventoryLevelBias, _Item);
+SysClear("DB_LO_PotionAlreadySpawned", 2);
+DB_LO_PotionAlreadySpawned(0, 1);
+
+PROC
+Proc_ExecuteLogicToSpawnDDAPotionsInObjectByInventoryLevelBias((REAL)_InventoryLevelBias, (GUIDSTRING)_Object)
+AND
+SysCount("DB_AT_IsPlayer", 1, _PlayerCount)
+AND
+IntegerProduct(_PlayerCount, -375, _NegativeApproxTotalVitalityInTeam)
+AND
+Real(_NegativeApproxTotalVitalityInTeam, _RealNegativeApproxTotalVitalityInTeam)
+AND
+RealProduct(_InventoryLevelBias, _RealNegativeApproxTotalVitalityInTeam, _RealActualHPBias)
+AND
+Integer(_RealActualHPBias, _ActualHPBias)
+AND
+IntegertoString(_ActualHPBias, _StringHPBias)
+THEN
+DebugBreak("Try Spawn DDA Potion");
+DebugBreak(_StringHPBias);
+Proc_SpawnPotionsToObjectByHPAmount(_ActualHPBias, _Object);
+
+// Call this after player finished team selection
+PROC
+Proc_InitializeAllContainers((INTEGER)_PlayerCounts)
+AND
+DB_LO_TeamAvgLevel(0, _TeamAvgLevel)
+AND
+Real(_PlayerCounts, _RealPlayerCounts)
+AND
+IntegerProduct(_PlayerCounts, 2, _DoublePlayerCounts)
+AND
+IntegerProduct(_PlayerCounts, 3, _TriplePlayerCounts)
+AND
+IntegerSum(_PlayerCounts, 2, _PlayerCountsPlusTwo)
+AND
+IntegerSum(_PlayerCounts, 1, _PlayerCountsPlusOne)
+AND
+IntegerSum(_PlayerCounts, 3, _PlayerCountsPlusThree)
+AND
+IntegerSubtract(_PlayerCounts, 1, _PlayerCountsMinusOneBeforeClamp)
+AND
+IntegerMax(_PlayerCountsMinusOneBeforeClamp, 1, _PlayerCountsMinusOne)
+AND
+IntegerSubtract(_PlayerCounts, 2, _PlayerCountsMinusTwoBeforeClamp)
+AND
+IntegerMax(_PlayerCountsMinusTwoBeforeClamp, 1, _PlayerCountsMinusTwo)
+AND
+RealDivide(_RealPlayerCounts, 2.0, _HalfRealPlayerCounts)
+AND
+RealSum(_HalfRealPlayerCounts, 0.5, _PreFlooredRealPlayerCounts)
+AND
+Integer(_PreFlooredRealPlayerCounts, _RoundedHalfPlayerCounts)
+AND
+RealDivide(_RealPlayerCounts, 4.0, _QuarterRealPlayerCounts)
+AND
+RealSum(_QuarterRealPlayerCounts, 0.5, _PreFlooredQuarterRealPlayerCounts)
+AND
+Integer(_PreFlooredQuarterRealPlayerCounts, _RoundedQuarterPlayerCountsBeforeClamp)
+AND
+IntegerMax(_RoundedQuarterPlayerCountsBeforeClamp, 1, _RoundedQuarterPlayerCountsClampedOne)
+THEN
+//Combat1Tomb:
+//ItemTemplateAddTo("TOOL_IdentifyingGlass_A_32288ce4-3d8d-46b3-a655-598350a96201", CONT_Humans_Tomb_B_000_753b40f8-dd3e-4295-977a-866ff44c4b49, _DoublePlayerCounts, 0);
+ItemTemplateAddTo("Scroll_Skill_Source_Resurrect_60180909-ee47-4d1c-b81c-e43bd8fdce1e", CONT_Humans_Tomb_B_000_753b40f8-dd3e-4295-977a-866ff44c4b49, _PlayerCountsMinusOne, 0);
+ItemTemplateAddTo("CON_Potion_A_Health_Medium_d2781168-5862-4e6d-95a3-47d9bd9e8dba", CONT_Humans_Tomb_B_000_753b40f8-dd3e-4295-977a-866ff44c4b49, _TriplePlayerCounts, 0);
+//ItemTemplateAddTo("CON_Potion_A_Health_Large_68b40462-247a-44fd-87d0-c2eea2f49ed1", CONT_Humans_Tomb_B_000_753b40f8-dd3e-4295-977a-866ff44c4b49, _DoublePlayerCounts, 0);
+//ItemTemplateAddTo("CON_Potion_Poison_A_8122de3c-a331-44a4-b51a-6767a778776f", CONT_Humans_Tomb_B_000_753b40f8-dd3e-4295-977a-866ff44c4b49, _TriplePlayerCounts, 0);
+//ItemTemplateAddTo("CON_Potion_Poison_Medium_A_3b5c5a91-00ab-4a86-bc30-b59e14951163", CONT_Humans_Tomb_B_000_753b40f8-dd3e-4295-977a-866ff44c4b49, _DoublePlayerCounts, 0);
+
+//Combat2Tomb:
+ItemTemplateAddTo("CON_Potion_A_Health_Medium_d2781168-5862-4e6d-95a3-47d9bd9e8dba", CONT_Humans_Tomb_G_000_fb07977d-0a58-4c8d-b738-199774ce15af, _PlayerCounts, 0);
+//ItemTemplateAddTo("BOOK_Skill_Air_Teleportation_26d5c4bb-0182-4f29-ab14-36db839b294f", CONT_Humans_Tomb_G_000_fb07977d-0a58-4c8d-b738-199774ce15af, 1, 0);
+ItemTemplateAddTo("CON_Potion_A_Health_Large_68b40462-247a-44fd-87d0-c2eea2f49ed1", CONT_Humans_Tomb_G_000_fb07977d-0a58-4c8d-b738-199774ce15af, _PlayerCounts, 0);
+//ItemTemplateAddTo("CON_Potion_Poison_A_8122de3c-a331-44a4-b51a-6767a778776f", CONT_Humans_Tomb_G_000_fb07977d-0a58-4c8d-b738-199774ce15af, _DoublePlayerCounts, 0);
+//ItemTemplateAddTo("CON_Potion_Poison_Medium_A_3b5c5a91-00ab-4a86-bc30-b59e14951163", CONT_Humans_Tomb_G_000_fb07977d-0a58-4c8d-b738-199774ce15af, _PlayerCounts, 0);
+
+//Combat3Crate2:
+ItemTemplateAddTo("CON_Potion_A_Health_Medium_d2781168-5862-4e6d-95a3-47d9bd9e8dba", CONT_Humans_Citz_Crate_A_001_613bfa05-912b-4398-99d2-1f1de6298d6f, _RoundedQuarterPlayerCountsClampedOne, 0);
+ItemTemplateAddTo("CON_Potion_A_Health_Huge_445fefc5-c643-4798-a495-e45a021d7ef4", CONT_Humans_Citz_Crate_A_001_613bfa05-912b-4398-99d2-1f1de6298d6f, _RoundedQuarterPlayerCountsClampedOne, 0);
+//ItemTemplateAddTo("CON_Potion_Poison_Large_A_6d9420d8-cbf6-444f-ac42-c535a7df99f7", CONT_Humans_Citz_Crate_A_001_613bfa05-912b-4398-99d2-1f1de6298d6f, _RoundedQuarterPlayerCountsBeforeClamp, 0);
+//ItemTemplateAddTo("CON_Potion_Poison_Medium_A_3b5c5a91-00ab-4a86-bc30-b59e14951163", CONT_Humans_Citz_Crate_A_001_613bfa05-912b-4398-99d2-1f1de6298d6f, _RoundedQuarterPlayerCountsClampedOne, 0);
+
+//Combat3Crate3:
+ItemTemplateAddTo("CON_Potion_PhysicalArmor_Boost_Medium_A_43a871bb-2e3b-47b7-9635-a6653c52fde5", CONT_Humans_Citz_Crate_A_002_59cfcf3e-687a-496b-b917-34219e9edabd, _RoundedHalfPlayerCounts, 0);
+ItemTemplateAddTo("CON_Potion_MagicArmor_Boost_Medium_A_aaaca555-98dc-4b95-a9e2-6349c2d67f56", CONT_Humans_Citz_Crate_A_002_59cfcf3e-687a-496b-b917-34219e9edabd, _RoundedHalfPlayerCounts, 0);
+
+//Combat4Crate
+ItemTemplateAddTo("CON_Potion_A_Health_Large_68b40462-247a-44fd-87d0-c2eea2f49ed1", CONT_Humans_Citz_Chest_Used_A_001_85ad83a5-c568-4b0d-b97f-77e2be9b9fc6, _RoundedQuarterPlayerCountsClampedOne, 0);
+
+//Combat4Jewelry
+//ItemTemplateAddTo("TOOL_IdentifyingGlass_A_32288ce4-3d8d-46b3-a655-598350a96201", CONT_JewelleryBox_000_9cf06c12-b9f6-4d54-b401-bb56b57df599, _PlayerCounts, 0);
+
+//Combat5GardenCrate
+ItemTemplateAddTo("CON_Potion_A_Health_Medium_d2781168-5862-4e6d-95a3-47d9bd9e8dba", CONT_Humans_Citz_Chest_Used_A_000_616cf8d4-796b-4edb-8d05-24ea77be336f, _RoundedHalfPlayerCounts, 0);
+
+//Combat7Crate
+ItemTemplateAddTo("CON_Potion_A_Health_Medium_d2781168-5862-4e6d-95a3-47d9bd9e8dba", CONT_Humans_Citz_Chest_Used_A_002_53a2f1ff-dd55-48a4-95e8-e405331eb81f, _RoundedQuarterPlayerCountsClampedOne, 0);
+
+// DDA Route Initialization, consider generate items based on tension bias factor
+PROC
+Proc_InitializeDDARouteHealthCrate((INTEGER)_PlayerCounts)
+AND
+DB_LO_TeamAvgLevel(0, _TeamAvgLevel)
+AND
+Real(_PlayerCounts, _RealPlayerCounts)
+AND
+IntegerProduct(_PlayerCounts, 2, _DoublePlayerCounts)
+AND
+IntegerProduct(_PlayerCounts, 3, _TriplePlayerCounts)
+AND
+IntegerSum(_PlayerCounts, 2, _PlayerCountsPlusTwo)
+AND
+IntegerSum(_PlayerCounts, 1, _PlayerCountsPlusOne)
+AND
+IntegerSum(_PlayerCounts, 3, _PlayerCountsPlusThree)
+AND
+IntegerSubtract(_PlayerCounts, 1, _PlayerCountsMinusOneBeforeClamp)
+AND
+IntegerMax(_PlayerCountsMinusOneBeforeClamp, 1, _PlayerCountsMinusOne)
+AND
+IntegerSubtract(_PlayerCounts, 2, _PlayerCountsMinusTwoBeforeClamp)
+AND
+IntegerMax(_PlayerCountsMinusTwoBeforeClamp, 1, _PlayerCountsMinusTwo)
+AND
+RealDivide(_RealPlayerCounts, 2.0, _HalfRealPlayerCounts)
+AND
+RealSum(_HalfRealPlayerCounts, 0.5, _PreFlooredRealPlayerCounts)
+AND
+Integer(_PreFlooredRealPlayerCounts, _RoundedHalfPlayerCounts)
+AND
+RealDivide(_RealPlayerCounts, 4.0, _QuarterRealPlayerCounts)
+AND
+RealSum(_QuarterRealPlayerCounts, 0.5, _PreFlooredQuarterRealPlayerCounts)
+AND
+Integer(_PreFlooredQuarterRealPlayerCounts, _RoundedQuarterPlayerCountsBeforeClamp)
+AND
+IntegerMax(_RoundedQuarterPlayerCountsBeforeClamp, 1, _RoundedQuarterPlayerCountsClampedOne)
+THEN
+//Combat1Tomb:
+ItemTemplateAddTo("Scroll_Skill_Source_Resurrect_60180909-ee47-4d1c-b81c-e43bd8fdce1e", CONT_Humans_Citz_Chest_Rich_A_001_df97f5c0-71d8-4d6e-8e00-ac0a2be398c0, _PlayerCountsMinusOne, 0);
+ItemTemplateAddTo("CON_Potion_A_Health_Large_68b40462-247a-44fd-87d0-c2eea2f49ed1", CONT_Humans_Citz_Chest_Rich_A_001_df97f5c0-71d8-4d6e-8e00-ac0a2be398c0, _PlayerCounts, 0);
+//ItemTemplateAddTo("CON_Potion_A_Health_Huge_445fefc5-c643-4798-a495-e45a021d7ef4", CONT_Humans_Citz_Chest_Rich_A_001_df97f5c0-71d8-4d6e-8e00-ac0a2be398c0, _RoundedHalfPlayerCounts, 0);
+
+PROC
+PROC_InventoryLevelMonitor()
+// AND
+// QryGetCurrentAvgHP()
+// AND
+// DB_LO_CurrentAvgHP(0, _CurHP)
+//AND
+// See if tension bias is below expected, and inventory level is lower than threshold
+//DB_LO_CurrentCampaignTensionBias(0, _TensionBias)
+AND
+DB_LO_CurrentCombat(0, _CurCombat, _)
+AND
+IntegerSum(_CurCombat, 1, _NextCombatID)
+AND
+DB_LO_CombatTensionPair(_NextCombatID, _NextCombatTension)
+AND
+DB_LO_DesiredHPLossPctByTension(_NextCombatTension, _DesiredHPLostPct)
+AND
+QryGetCurrentInventoryLevel()
+AND
+DB_LO_CurrentInventoryLevel(0, _CurLevel)
+// AND
+// RealSum(_CurHP, _CurLevel, _TotalInventoryLevel)
+// AND
+// _TotalInventoryLevel < 1.0
+AND
+_CurLevel < _DesiredHPLostPct
+THEN
+PROC_PerformReactivePolicy();
+
+QRY
+Qry_ResetSelectedInventory()
+THEN
+SysClear("DB_LO_SelectedInventoryInCurrentCombat", 2);
+
+QRY
+Qry_ResetIntegerCounter()
+THEN
+SysClear("DB_LO_IntegerCounter", 1);
+DB_LO_IntegerCounter(0);
+
+PROC
+PROC_IncrementIntegerCounter()
+AND
+DB_LO_IntegerCounter(_Integer)
+AND
+IntegerSum(_Integer, 1, _NewInteger)
+THEN
+SysClear("DB_LO_IntegerCounter", 1);
+DB_LO_IntegerCounter(_NewInteger);
+
+QRY
+Qry_GenerateInventoryListForCurrentCombat((INTEGER)_CombatID)
+AND
+Qry_ResetSelectedInventory()
+AND
+Qry_ResetIntegerCounter()
+AND
+SysCount("DB_LO_SelectedInventoryInCurrentCombat", 2, _Count)
+AND
+IntegertoString(_Count, _TmpString)
+AND
+QryPassedCheck("Cleared Selected Inventory, Now inventory: ")
+AND
+QryPassedCheck(_TmpString)
+AND
+IntegertoString(_CombatID, _StringCombatID)
+AND
+QryPassedCheck("Current Combat ID: ")
+AND
+QryPassedCheck(_StringCombatID)
+AND
+QryPassedCheck("Reset Integer Counter and Inventory")
+AND
+DB_LO_AvailableInventoriesAroundCombat(_CombatID, _Inventory)
+AND
+QryPassedCheck("Checking...")
+AND
+GetUUID(_Inventory, _Tmp11)
+AND
+QryPassedCheck(_Tmp11)
+AND
+DB_CONTAINER_OPENED(_Inventory, 0)
+AND
+DB_LO_IntegerCounter(_Index)
+AND
+IntegertoString(_Index, _StringIndex)
+AND
+QryPassedCheck("Available Inventory Found Nearby")
+AND
+GetUUID(_Inventory, _StrInventory)
+AND
+QryPassedCheck(_StrInventory)
+THEN
+DebugBreak("Index: ");
+DebugBreak(_StringIndex);
+DB_LO_SelectedInventoryInCurrentCombat(_Index, _Inventory);
+PROC_IncrementIntegerCounter();
+
+QRY
+Qry_RandomlySelectInventoryAroundCombat((INTEGER)_CombatID)
+AND
+Qry_GenerateInventoryListForCurrentCombat(_CombatID)
+AND
+SysCount("DB_LO_SelectedInventoryInCurrentCombat", 2, _Count)
+AND
+IntegertoString(_Count, _TmpString)
+AND
+QryPassedCheck("Available Inventory Nearby Amount: ")
+AND
+QryPassedCheck(_TmpString)
+AND
+DB_LO_IntegerCounter(_Index)
+AND
+Random(_Index, _OutRandomInt)
+AND
+IntegertoString(_OutRandomInt, _StrOutRandomInt)
+AND
+QryPassedCheck("Random Index: ")
+AND
+QryPassedCheck(_StrOutRandomInt)
+AND
+DB_LO_SelectedInventoryInCurrentCombat(_OutRandomInt, _OutInventory)
+AND
+GetUUID(_OutInventory, _StrOutInventory)
+AND
+QryPassedCheck(_StrOutInventory)
+AND
+Qry_ResetSelectedInventoryToSpawn()
+THEN
+//SysClear("DB_SelectedInventoryToSpawnPotion", 1);
+DB_LO_SelectedInventoryToSpawnPotion(_OutInventory);
+
+QRY
+Qry_ResetSelectedInventoryToSpawn()
+AND
+SysCount("DB_LO_SelectedInventoryToSpawnPotion", 1, _Count)
+AND
+_Count > 0
+AND
+IntegertoString(_Count, _Str)
+AND
+QryPassedCheck("Selected Inventory Count Before Reset: ")
+AND
+QryPassedCheck(_Str)
+AND
+DB_LO_SelectedInventoryToSpawnPotion(_OldPotion)
+THEN
+NOT DB_LO_SelectedInventoryToSpawnPotion(_OldPotion);
+DebugBreak("Selected Inventory To Spawn Potion Cleared");
+
+QRY
+Qry_ResetSelectedInventoryToSpawn()
+AND
+SysCount("DB_LO_SelectedInventoryToSpawnPotion", 1, _Count)
+AND
+_Count == 0
+AND
+QryPassedCheck("Selected Inventory Count Before Reset")
+AND
+QryPassedCheck("0")
+THEN
+DebugBreak("Selected Inventory To Spawn Potion Cleared");
+
+PROC
+PROC_PerformReactivePolicy()
+// AND
+// SysCount("DB_AT_IsPlayer", 1, _PlayerCounts)
+// AND
+// Real(_PlayerCounts, _RealPlayerCounts)
+// AND
+// RealDivide(_RealPlayerCounts, 2.0, _HalfRealPlayerCounts)
+// AND
+// RealSum(_HalfRealPlayerCounts, 0.5, _PreFlooredRealPlayerCounts)
+// AND
+// Integer(_PreFlooredRealPlayerCounts, _RoundedHalfPlayerCounts)
+AND
+DB_LO_CurrentCombat(0, _CurCombat, _)
+AND
+Qry_RandomlySelectInventoryAroundCombat(_CurCombat)
+AND
+SysCount("DB_LO_SelectedInventoryToSpawnPotion", 1, _Count)
+AND
+IntegertoString(_Count, _StrCount)
+AND
+QryPassedCheck("Current Selected Inventory Count")
+AND
+QryPassedCheck(_StrCount)
+AND
+QryPassedCheck("Ready To evaluate DDA in Inventory")
+AND
+DB_LO_SelectedInventoryToSpawnPotion(_SelectedInventory)
+THEN
+Proc_TrySpawnDDAPotionsInObject(_SelectedInventory);
+
+//ItemTemplateAddTo("CON_Potion_A_Health_Medium_d2781168-5862-4e6d-95a3-47d9bd9e8dba", _InventoryITEMGUID, _RoundedHalfPlayerCounts);
+
+// QRY
+// QrySelectAvailableInventoryAroundCombat((INTEGER)_Combat)
+// AND
+// DB_LO_AvailableInventoriesAroundCombat(_Combat, _Inventory)
+// AND
+// DB_CONTAINER_OPENED((ITEMGUID)_Inventory, _IsOpened)
+// AND
+// _IsOpened == 0
+// AND
+// DB_LO_SelectedInventoryInCurrentCombat(_OldInventory)
+// THEN
+// NOT DB_CONTAINER_OPENED(_Inventory, _IsOpened);
+// DB_CONTAINER_OPENED(_Inventory, 1);
+// NOT DB_LO_SelectedInventoryInCurrentCombat(_OldInventory);
+// DB_LO_SelectedInventoryInCurrentCombat((ITEMGUID)_Inventory);
+
+QRY
+QryResetInventoryLevel()
+AND
+DB_LO_CurrentInventoryLevel(0, _OldLevel)
+AND
+QryGetCurrentAvgHP()
+AND
+DB_LO_CurrentAvgHP(0, _CurAvgHP)
+AND
+Integer(_CurAvgHP, _IntTemp)
+AND
+IntegertoString(_IntTemp, _StrTemp)
+AND
+RealProduct(_CurAvgHP, 0.01, _CurAvgHPInPct)
+THEN
+NOT DB_LO_CurrentInventoryLevel(0, _OldLevel);
+DB_LO_CurrentInventoryLevel(0, _CurAvgHPInPct);
+
+QRY
+QryGetCurrentInventoryLevel()
+AND
+QryResetInventoryLevel()
+AND
+SysCount("DB_AT_IsPlayer", 1, _PlayerCounts)
+AND
+Real(_PlayerCounts, _RealPlayerCounts)
+AND
+DB_AT_IsPlayer(_Player)
+AND // Mid HP
+CharacterGetItemTemplateCount(_Player, "CON_Potion_A_Health_Medium_d2781168-5862-4e6d-95a3-47d9bd9e8dba", _MidHPAmount)
+AND
+Real(_MidHPAmount, _RealMidHPAmount)
+AND
+RealProduct(_RealMidHPAmount, 0.33, _MidHPPctProvidedForEachPlayer)
+AND
+RealDivide(_MidHPPctProvidedForEachPlayer, _RealPlayerCounts, _MidHPPctProvidedForWholeTeam)
+AND // Large HP
+CharacterGetItemTemplateCount(_Player, "CON_Potion_A_Health_Large_68b40462-247a-44fd-87d0-c2eea2f49ed1", _LargeHPAmount)
+AND
+Real(_LargeHPAmount, _RealLargeHPAmount)
+AND
+RealProduct(_RealLargeHPAmount, 0.66, _LargeHPPctProvidedForEachPlayer)
+AND
+RealDivide(_LargeHPPctProvidedForEachPlayer, _RealPlayerCounts, _LargeHPPctProvidedForWholeTeam)
+AND // Huge HP
+CharacterGetItemTemplateCount(_Player, "CON_Potion_A_Health_Huge_445fefc5-c643-4798-a495-e45a021d7ef4", _HugeHPAmount)
+AND
+Real(_HugeHPAmount, _RealHugeHPAmount)
+AND
+RealProduct(_RealHugeHPAmount, 0.99, _HugeHPPctProvidedForEachPlayer)
+AND
+RealDivide(_HugeHPPctProvidedForEachPlayer, _RealPlayerCounts, _HugeHPPctProvidedForWholeTeam)
+AND // Small HP
+CharacterGetItemTemplateCount(_Player, "CON_Potion_A_Health_944e4b8c-1736-4ff6-8fa6-d7ceda9941da", _SmallHPAmount)
+AND
+Real(_SmallHPAmount, _RealSmallHPAmount)
+AND
+RealProduct(_RealSmallHPAmount, 0.067, _SmallHPPctProvidedForEachPlayer)
+AND
+RealDivide(_SmallHPPctProvidedForEachPlayer, _RealPlayerCounts, _SmallHPPctProvidedForWholeTeam)
+AND
+DB_LO_CurrentInventoryLevel(0, _CurLevel)
+AND
+RealSum(_CurLevel, _SmallHPPctProvidedForWholeTeam, _Temp0)
+AND
+RealSum(_Temp0, _MidHPPctProvidedForWholeTeam, _Temp1)
+AND
+RealSum(_Temp1, _LargeHPPctProvidedForWholeTeam, _Temp2)
+AND
+RealSum(_Temp2, _HugeHPPctProvidedForWholeTeam, _RealFinalInventoryLevel)
+THEN
+NOT DB_LO_CurrentInventoryLevel(0, _CurLevel);
+DB_LO_CurrentInventoryLevel(0, _RealFinalInventoryLevel);
+
+
+PROC
+Proc_InitializePlayerInventory()
+AND
+DB_AT_IsPlayer(_Player)
+AND
+SysCount("DB_AT_IsPlayer", 1, _PlayerCounts)
+AND
+IntegerSubtract(_PlayerCounts, 1, _PlayerCountsMinusOne)
+THEN
+ItemTemplateAddTo("CON_Potion_A_Health_Medium_d2781168-5862-4e6d-95a3-47d9bd9e8dba", _Player, 3, 1);
+ItemTemplateAddTo("Scroll_Skill_Source_Resurrect_60180909-ee47-4d1c-b81c-e43bd8fdce1e", _Player, _PlayerCountsMinusOne, 0);
+
+PROC
+Proc_SpawnPotionsToObjectByHPAmount((INTEGER)_HealthPoint, (GUIDSTRING)_Object)
+AND
+Qry_SetRemainHealth(_HealthPoint)
+AND
+DB_LO_ForLoop(_Index)
+AND
+DB_RemainHealthPointForSpawnPotion(0, _RemainHealth)
+AND
+_RemainHealth >= 15
+THEN
+Proc_LoopSpawnPotionsToObjectByRemainingHealth(_Object);
+DebugBreak("DDA Potion Spawned");
+
+QRY
+Qry_SetRemainHealth((INTEGER)_NewHealth)
+AND
+DB_RemainHealthPointForSpawnPotion(0, _RemainHealth)
+THEN
+NOT DB_RemainHealthPointForSpawnPotion(0, _RemainHealth);
+DB_RemainHealthPointForSpawnPotion(0, _NewHealth);
+
+// PROC
+// Proc_LoopSpawnPotionsToObjectByRemainingHealth((GUIDSTRING)_Object)
+// AND
+// DB_RemainHealthPointForSpawnPotion(0, _RemainHealth)
+// AND
+// _RemainHealth >= 650
+// AND
+// IntegerSubtract(_RemainHealth, 650, _NewRemainHealth)
+// THEN
+// ItemTemplateAddTo("CON_Potion_A_Health_Huge_445fefc5-c643-4798-a495-e45a021d7ef4", _Object, 1);
+// NOT DB_RemainHealthPointForSpawnPotion(0, _RemainHealth);
+// DB_RemainHealthPointForSpawnPotion(0, _NewRemainHealth);
+
+PROC
+Proc_LoopSpawnPotionsToObjectByRemainingHealth((GUIDSTRING)_Object)
+AND
+DB_RemainHealthPointForSpawnPotion(0, _RemainHealth)
+// AND
+// _RemainHealth < 650
+AND
+_RemainHealth >= 290
+AND
+IntegerSubtract(_RemainHealth, 290, _NewRemainHealth)
+THEN
+ItemTemplateAddTo("CON_Potion_A_Health_Large_68b40462-247a-44fd-87d0-c2eea2f49ed1", _Object, 1);
+NOT DB_RemainHealthPointForSpawnPotion(0, _RemainHealth);
+DB_RemainHealthPointForSpawnPotion(0, _NewRemainHealth);
+
+PROC
+Proc_LoopSpawnPotionsToObjectByRemainingHealth((GUIDSTRING)_Object)
+AND
+DB_RemainHealthPointForSpawnPotion(0, _RemainHealth)
+AND
+_RemainHealth < 290
+AND
+_RemainHealth >= 120
+AND
+IntegerSubtract(_RemainHealth, 120, _NewRemainHealth)
+THEN
+ItemTemplateAddTo("CON_Potion_A_Health_Medium_d2781168-5862-4e6d-95a3-47d9bd9e8dba", _Object, 1);
+NOT DB_RemainHealthPointForSpawnPotion(0, _RemainHealth);
+DB_RemainHealthPointForSpawnPotion(0, _NewRemainHealth);
+
+PROC
+Proc_LoopSpawnPotionsToObjectByRemainingHealth((GUIDSTRING)_Object)
+AND
+DB_RemainHealthPointForSpawnPotion(0, _RemainHealth)
+AND
+_RemainHealth < 120
+AND
+_RemainHealth >= 15
+AND
+IntegerSubtract(_RemainHealth, 30, _NewRemainHealth)
+THEN
+ItemTemplateAddTo("CON_Potion_A_Health_944e4b8c-1736-4ff6-8fa6-d7ceda9941da", _Object, 1);
+NOT DB_RemainHealthPointForSpawnPotion(0, _RemainHealth);
+DB_RemainHealthPointForSpawnPotion(0, _NewRemainHealth);
+
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "__Start"

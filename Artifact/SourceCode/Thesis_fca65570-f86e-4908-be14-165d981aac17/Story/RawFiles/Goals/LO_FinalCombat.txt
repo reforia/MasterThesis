@@ -1,0 +1,28 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+ProcTriggerRegisterForPlayers((TRIGGERGUID)S_LO_FinalCombatTrigger_bf9d9906-2ca4-4cb9-a0e6-9f98a21aa10d);
+KBSECTION
+IF
+CharacterEnteredTrigger(_Char, (TRIGGERGUID)S_LO_FinalCombatTrigger_bf9d9906-2ca4-4cb9-a0e6-9f98a21aa10d)
+AND
+GlobalGetFlag("GLO_FinalCombat_Triggered", _FlagState)
+AND
+_FlagState == 0
+THEN
+GlobalSetFlag("GLO_FinalCombat_Triggered");
+//IterateParty((CHARACTERGUID)_Char, "ForEachCharacterInParty");
+DebugBreak("Cave Final Combat Triggered");
+ShowNotification(_Char,"Triggered Final Combat");
+
+IF
+GlobalFlagSet("GLO_FinalCombat_Triggered")
+THEN
+PROC_SetCurrentCombat(15);
+ProcSpawnDDACombatAtTrigger((TRIGGERGUID)S_LO_FinalCombatSpawnArea_5527aeae-b078-44b1-8725-054518b9a559, 0.9);
+DebugBreak("Finished Spawning Final Combat");
+GoalCompleted;
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "LevelOne"

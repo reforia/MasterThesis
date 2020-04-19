@@ -1,0 +1,45 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+ProcTriggerRegisterForPlayers((TRIGGERGUID)S_LO_GraveyardLandingTrigger_8e5fd39e-fad5-4dc3-abd8-4074cab90052);
+KBSECTION
+IF
+CharacterEnteredTrigger(_Char,(TRIGGERGUID)S_LO_GraveyardLandingTrigger_8e5fd39e-fad5-4dc3-abd8-4074cab90052)
+AND
+SysCount("DB_AT_IsPlayer", 1, _Player)
+AND
+_Player == 0
+THEN
+DB_AT_IsPlayer(_Char);
+//PROC_StartThesisTimer();
+Proc_InitializePlayerInventory();
+PROC_SetCurrentCombat(0);
+Proc_ResetSpawnPotion();
+PROC_PerformReactivePolicy();
+//ShowNotification(_Char, "Solo Player");
+ShowNotification(_Char,"10 DAYS AGO...");
+//Proc_InitializeAllContainers(1);
+//TeleportTo(_Char,S_LO_GraveStart_b61447b4-9830-401c-b433-4a04a7a6465f,"OnGraveReached",1,0,1);
+GoalCompleted;
+
+IF
+CharacterEnteredTrigger(_Char,(TRIGGERGUID)S_LO_GraveyardLandingTrigger_8e5fd39e-fad5-4dc3-abd8-4074cab90052)
+AND
+SysCount("DB_AT_IsPlayer", 1, _Player)
+AND
+_Player > 0
+THEN
+//PROC_StartThesisTimer();
+Proc_InitializePlayerInventory();
+PROC_SetCurrentCombat(0);
+Proc_ResetSpawnPotion();
+PROC_PerformReactivePolicy();
+ShowNotification(_Char,"10 DAYS AGO...");
+//Proc_InitializeAllContainers(_Player);
+//TeleportTo(_Char,S_LO_GraveStart_b61447b4-9830-401c-b433-4a04a7a6465f,"OnGraveReached",1,0,1);
+GoalCompleted;
+
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "LevelOne"

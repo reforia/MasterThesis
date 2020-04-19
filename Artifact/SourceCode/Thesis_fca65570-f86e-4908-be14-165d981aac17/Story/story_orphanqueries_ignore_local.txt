@@ -1,0 +1,2 @@
+DB_LO_CurrentCampaignTensionBias 1DB_LO_TensionGroupBiasFactor 2
+DB_LO_DesignTensionBias 2DB_LO_ForLoop 1DB_LO_DDAed_Stack 1DB_LO_DDAed_Stack 2ProcSpawnDDACombatAtTrigger 1DB_AT_IsPlayer 1

@@ -1,0 +1,42 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+DB_GLO_FirstLevelAfterCharacterCreation("StartLevel");
+
+// level name, start point trigger, name of movie to play (if any)
+DB_CharacterCreationTransitionInfo("StartLevel",(TRIGGERGUID)Z_LO_StartTrigger_4a3259ed-33e2-4ee6-bafe-6478838a1540,"");
+
+
+//REGION
+DB_CheckLevelStart("Level1");
+//END_REGION
+
+KBSECTION
+IF
+RegionStarted("Level1")
+AND
+DB_IsPlayer(_Player)
+THEN
+ShowNotification(_Player, "T.I.M.E AGENCY");
+PROC_Initialize_player();
+GoalCompleted;
+
+IF
+DB_CheckLevelStart("Level1")
+AND
+DB_CurrentLevel("Level1")
+AND
+DB_IsPlayer(_Player)
+THEN
+ShowNotification(_Player, "T.I.M.E AGENCY");
+PROC_Initialize_player();
+CharacterLevelUpTo(_Player, 10);
+GoalCompleted;
+
+
+
+
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "__Start"

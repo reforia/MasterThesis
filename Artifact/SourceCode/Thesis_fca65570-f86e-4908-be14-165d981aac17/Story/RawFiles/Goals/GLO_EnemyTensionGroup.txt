@@ -1,0 +1,1636 @@
+Version 1
+SubGoalCombiner SGC_AND
+INITSECTION
+//DB_LO_CurrentCombat(0, _CurrentCombat, _CurCombatTension)
+DB_LO_CurrentCombat(0, -1, 0.0);
+
+//DB_LO_CurrentCampaignTensionBias(_FirstCol, _CurrentBias);
+DB_LO_CurrentCampaignTensionBias(0, 0);
+
+//DB_AT_PlayerTempHP(0, _TempPct)
+//DB_AT_PlayerTempHP(0, 0.0);
+
+//DB_LO_MaxTensionStack(_DesiredTension, _MaxTensionStack), should add current player count
+DB_LO_MaxTensionStack(0.1, 1); //1-2s ~ 2-4s ~ 3-6s ~ 4-8s
+DB_LO_MaxTensionStack(0.2, 2); //1-3s ~ 2-5s ~ 3-7s ~ 4-9s
+DB_LO_MaxTensionStack(0.3, 2); //1-3s ~ 2-5s ~ 3-7s ~ 4-9s
+DB_LO_MaxTensionStack(0.4, 3); //1-3s/2m ~ 2-5s/3m ~ 3-7s/4m ~ 4-9s/5m
+DB_LO_MaxTensionStack(0.5, 3); //1-4s/2m ~ 2-6s/3m ~ 3-8s/4m ~ 4-10s/5m
+DB_LO_MaxTensionStack(0.6, 4); //1-4s/2m ~ 2-6s/3m ~ 3-8s/4m ~ 4-10s/5m
+DB_LO_MaxTensionStack(0.7, 4); //1-4s/2m/1h ~ 2-6s/3m/2h ~ 3-8s/4m/2h ~ 4-10s/5m/3h
+DB_LO_MaxTensionStack(0.8, 5); //1-5s/3m/2h ~ 2-7s/4m/2h ~ 3-9s/5m/3h ~ 4-11s/6m/3h
+DB_LO_MaxTensionStack(0.9, 5); //1-6s/3m/2h ~ 2-8s/4m/2h ~ 3-10s/5m/3h ~ 4-12s/6m/3h
+
+//DB_LO_MaxTensionStack(_DesiredTension, _MaxTensionStack), should add current player count
+DB_LO_MinTensionStack(0.1, -1); //1-2s ~ 2-4s ~ 3-6s ~ 4-8s
+DB_LO_MinTensionStack(0.2, -1); //1-3s ~ 2-5s ~ 3-7s ~ 4-9s
+DB_LO_MinTensionStack(0.3, -1); //1-3s ~ 2-5s ~ 3-7s ~ 4-9s
+DB_LO_MinTensionStack(0.4, -1); //1-3s/2m ~ 2-5s/3m ~ 3-7s/4m ~ 4-9s/5m
+DB_LO_MinTensionStack(0.5, 0); //1-4s/2m ~ 2-6s/3m ~ 3-8s/4m ~ 4-10s/5m
+DB_LO_MinTensionStack(0.6, 0); //1-4s/2m ~ 2-6s/3m ~ 3-8s/4m ~ 4-10s/5m
+DB_LO_MinTensionStack(0.7, 2); //1-4s/2m/1h ~ 2-6s/3m/2h ~ 3-8s/4m/2h ~ 4-10s/5m/3h
+DB_LO_MinTensionStack(0.8, 2); //1-5s/3m/2h ~ 2-7s/4m/2h ~ 3-9s/5m/3h ~ 4-11s/6m/3h
+DB_LO_MinTensionStack(0.9, 2); //1-6s/3m/2h ~ 2-8s/4m/2h ~ 3-10s/5m/3h ~ 4-12s/6m/3h
+
+//DB_LO_TeamAvgLevel
+DB_LO_TeamAvgLevel(0, 0.0);
+
+//DB_LO_DDAed_Stack(_FirstCol, _Stack);
+DB_LO_DDAed_Stack(0, 0);
+
+//NOT DB_LO_BiasedCombat_StackEmpty(1);
+NOT DB_LO_BiasedCombat_StackEmpty(1);
+
+GlobalClearFlag("GLO_TombCombatTest1_Triggered");
+GlobalClearFlag("GLO_TombCombatTest2_Triggered");
+GlobalClearFlag("GLO_BiasedCombat1_Triggered");
+GlobalClearFlag("GLO_TombCombatTest_Finished");
+GlobalClearFlag("GLO_PreBiasedCombat_Triggered");
+GlobalClearFlag("GLO_HouseEntranceCombat_Triggered");
+GlobalClearFlag("GLO_CaveCombat1_Triggered");
+GlobalClearFlag("GLO_CaveCombat2_Triggered");
+GlobalClearFlag("GLO_FinalCombat_Triggered");
+
+//DB_LO_EnterCombatHPBias
+DB_LO_EnterCombatHPBias(90.0, 0);
+DB_LO_EnterCombatHPBias(70.0, -1);
+DB_LO_EnterCombatHPBias(50.0, -2);
+DB_LO_EnterCombatHPBias(30.0, -3);
+DB_LO_EnterCombatHPBias(0.0, -4);
+
+//DB_LO_CurrentCombatHPBias
+DB_LO_CurrentCombatHPBias(0, 0);
+DB_LO_CurrentCombatAvgHP(0, 0.0);
+DB_LO_CurrentAvgHP(0, 0.0);
+
+//Player Tension Bias Database
+//DB_LO_PlayerTensionBiasFromTest(_HPPercentToTest, _TensionBias)
+DB_LO_PlayerTensionBiasFromTest(0.9, 4);
+DB_LO_PlayerTensionBiasFromTest(0.8, 4);
+DB_LO_PlayerTensionBiasFromTest(0.7, 4);
+DB_LO_PlayerTensionBiasFromTest(0.6, 3);
+DB_LO_PlayerTensionBiasFromTest(0.5, 3);
+DB_LO_PlayerTensionBiasFromTest(0.4, 2);
+DB_LO_PlayerTensionBiasFromTest(0.3, 2);
+DB_LO_PlayerTensionBiasFromTest(0.2, 2);
+DB_LO_PlayerTensionBiasFromTest(0.1, 1);
+DB_LO_PlayerTensionBiasFromTest(0.0, 0);
+DB_LO_PlayerTensionBiasFromTest(-0.1, -1);
+DB_LO_PlayerTensionBiasFromTest(-0.2, -2);
+DB_LO_PlayerTensionBiasFromTest(-0.3, -2);
+DB_LO_PlayerTensionBiasFromTest(-0.4, -2);
+DB_LO_PlayerTensionBiasFromTest(-0.5, -3);
+DB_LO_PlayerTensionBiasFromTest(-0.6, -3);
+DB_LO_PlayerTensionBiasFromTest(-0.7, -4);
+DB_LO_PlayerTensionBiasFromTest(-0.8, -4);
+DB_LO_PlayerTensionBiasFromTest(-0.9, -4);
+DB_LO_PlayerTensionBiasFromTest(-1.0, -5); 
+
+//DB_LO_DesiredHPLossPctByTension(_DesiredTension, _HPLoss)
+DB_LO_DesiredHPLossPctByTension(0.0, 0.0);
+DB_LO_DesiredHPLossPctByTension(0.1, 0.25);
+DB_LO_DesiredHPLossPctByTension(0.2, 0.3);
+DB_LO_DesiredHPLossPctByTension(0.3, 0.35);
+DB_LO_DesiredHPLossPctByTension(0.4, 0.4);
+DB_LO_DesiredHPLossPctByTension(0.5, 0.5);
+DB_LO_DesiredHPLossPctByTension(0.6, 0.6);
+DB_LO_DesiredHPLossPctByTension(0.7, 0.7);
+DB_LO_DesiredHPLossPctByTension(0.8, 0.8);
+DB_LO_DesiredHPLossPctByTension(0.9, 1.0);
+
+//_CurrentCombat, _CurrentCombatTension
+DB_LO_CombatTensionPair(0, 0.3);
+DB_LO_CombatTensionPair(1, 0.3);
+DB_LO_CombatTensionPair(2, 0.3);
+DB_LO_CombatTensionPair(3, 0.3);
+DB_LO_CombatTensionPair(4, 0.4);
+DB_LO_CombatTensionPair(5, 0.4);
+DB_LO_CombatTensionPair(6, 0.5);
+DB_LO_CombatTensionPair(7, 0.5);
+DB_LO_CombatTensionPair(8, 0.6);
+DB_LO_CombatTensionPair(9, 0.6);
+DB_LO_CombatTensionPair(10, 0.7);
+DB_LO_CombatTensionPair(11, 0.7);
+DB_LO_CombatTensionPair(12, 0.7);
+DB_LO_CombatTensionPair(13, 0.7);
+DB_LO_CombatTensionPair(14, 0.9);
+DB_LO_CombatTensionPair(15, 0.9);
+DB_LO_CombatTensionPair(16, 0.0);
+
+//DB_LO_EnterCombatActualHP
+DB_LO_EnterCombatActualHP(0, 0.0);
+
+//DB_LO_LeaveCombatActualHP
+DB_LO_LeaveCombatActualHP(0, 0.0);
+
+//DB_LO_ActualHPLossInCurrentCombat
+DB_LO_ActualHPLossPctInCurrentCombat(0, 0.0);
+
+//DB_LO_DesiredHPLoss
+DB_LO_DesiredHPLossPctOfCurrentCombat(0, 0.0);
+
+//DB_LO_DesiredHPLossAndActualHPLossDiff
+DB_LO_DesiredHPLossAndActualHPLossDiff(0, 0.0);
+
+//Design Tension Bias Database
+//DB_LO_DesignTensionBias(_DesiredTension, _TensionBias)
+DB_LO_DesignTensionBias(1.0, 4);
+DB_LO_DesignTensionBias(0.9, 4);
+DB_LO_DesignTensionBias(0.8, 3);
+DB_LO_DesignTensionBias(0.7, 2);
+DB_LO_DesignTensionBias(0.6, 1);
+DB_LO_DesignTensionBias(0.5, 0);
+DB_LO_DesignTensionBias(0.4, -1);
+DB_LO_DesignTensionBias(0.3, -1);
+DB_LO_DesignTensionBias(0.2, -1);
+DB_LO_DesignTensionBias(0.1, -1);
+DB_LO_DesignTensionBias(0.0, -2);
+
+//Tension Group Bias Factor
+DB_LO_TensionGroupBiasFactor("Low", -1);
+DB_LO_TensionGroupBiasFactor("Mid", -2);
+DB_LO_TensionGroupBiasFactor("High", -4);
+
+//DB_ForLoop
+DB_LO_ForLoop(1);
+DB_LO_ForLoop(2);
+DB_LO_ForLoop(3);
+DB_LO_ForLoop(4);
+DB_LO_ForLoop(5);
+DB_LO_ForLoop(6);
+DB_LO_ForLoop(7);
+DB_LO_ForLoop(8);
+DB_LO_ForLoop(9);
+DB_LO_ForLoop(10);
+DB_LO_ForLoop(11);
+DB_LO_ForLoop(12);
+DB_LO_ForLoop(13);
+DB_LO_ForLoop(14);
+DB_LO_ForLoop(15);
+DB_LO_ForLoop(16);
+DB_LO_ForLoop(17);
+DB_LO_ForLoop(18);
+DB_LO_ForLoop(19);
+DB_LO_ForLoop(20);
+DB_LO_ForLoop(21);
+DB_LO_ForLoop(22);
+DB_LO_ForLoop(23);
+DB_LO_ForLoop(24);
+DB_LO_ForLoop(25);
+
+//DB_LO_CurrentEnemyCreated(_FirstCol, _Char)
+DB_LO_CurrentEnemyCreated(0, (CHARACTERGUID)S_Player_Lohse_bb932b13-8ebf-4ab4-aac0-83e6924e4295);
+//Tension Group Registering
+//Low Tension Enemy Group
+
+//Middow Tension Enemy Group, Zombie Melee and Zombie Ranged
+DB_LowTension(0,"Low","33df0dc8-463d-4ed8-b900-9e82685f9f88");
+DB_LowTension(1,"Low","e0affc47-8a41-45dc-97e2-0b5584fab521");
+
+DB_MidTension(0,"Mid","1b2ef1e5-7960-4f95-b12d-31fbbf4c5102");
+DB_MidTension(1,"Mid","37d82081-ddf7-4277-9ab6-33838c87bc4d");
+
+DB_HighTension(0,"High","412171b3-8ff3-4cb0-9a9f-eae97f3aa6fa");
+DB_HighTension(1,"High","7d7721c1-112f-48df-86c8-69f3f071b922");
+
+//High Tension Enemy Group
+KBSECTION
+PROC
+PROC_SetCurrentCombat((INTEGER)_NewCombat)
+AND
+QryPassedCheck("Set CombatID To: ")
+AND
+IntegertoString(_NewCombat, _NewCombatStr)
+AND
+QryPassedCheck(_NewCombatStr)
+AND
+DB_LO_CombatTensionPair(_NewCombat, _NewTension)
+THEN
+SysClear("DB_LO_CurrentCombat", 3);
+DB_LO_CurrentCombat(0, _NewCombat, _NewTension);
+
+//QrySetDesiredHPLossForCurrentCombat, call when entering spawning area
+QRY
+QrySetDesiredHPLossForCurrentCombat((REAL)_DesiredTension)
+AND
+DB_LO_DesiredHPLossPctByTension(_DesiredTension, _DesiredHPLossPct)
+AND
+QrySetCurrentCombatAvgHP()
+AND
+DB_LO_CurrentCombatAvgHP(0, _CurrentHP)
+AND
+RealProduct(_CurrentHP, 0.01, _CurrentHPPct)
+AND
+RealProduct(_CurrentHPPCt, _DesiredHPLossPct, _FinalDesiredHPLossPct)
+AND
+DB_LO_DesiredHPLossPctOfCurrentCombat(0, _Old)
+THEN
+NOT DB_LO_DesiredHPLossPctOfCurrentCombat(0, _Old);
+DB_LO_DesiredHPLossPctOfCurrentCombat(0, _FinalDesiredHPLossPct);
+
+//RegisterEnterCombatHP, call at first when enter combat
+QRY
+QryRegisterEnterCombatHP()
+AND
+QrySetCurrentCombatAvgHP()
+AND
+DB_LO_CurrentCombatAvgHP(0, _CurHP)
+AND
+DB_LO_EnterCombatActualHP(0, _Old)
+THEN
+NOT DB_LO_EnterCombatActualHP(0, _Old);
+DB_LO_EnterCombatActualHP(0, _CurHP);
+
+//RegisterLeaveCombatHP, call at first when leave combat
+QRY
+QryRegisterLeaveCombatHP()
+AND
+QrySetCurrentCombatAvgHP()
+AND
+DB_LO_CurrentCombatAvgHP(0, _CurHP)
+AND
+DB_LO_LeaveCombatActualHP(0, _Old)
+THEN
+NOT DB_LO_LeaveCombatActualHP(0, _Old);
+DB_LO_LeaveCombatActualHP(0, _CurHP);
+
+// //QrySetActualHPLossPct, Call when leave combat, after registered leave combat
+// QRY
+// QrySetActualHPLossPct()
+// AND
+// DB_LO_EnterCombatActualHP(0, _EnterCombatHP)
+// AND
+// DB_LO_LeaveCombatActualHP(0, _LeaveCombatHP)
+// AND
+// RealSubtract(_EnterCombatHP, _LeaveCombatHP, _ActualHPLoss)
+// AND
+// RealDivide(_ActualHPLoss, _EnterCombatHP, _ActualHPLossPct)
+// AND
+// DB_LO_ActualHPLossPctInCurrentCombat(0, _Old)
+// THEN
+// NOT DB_LO_ActualHPLossPctInCurrentCombat(0, _Old);
+// DB_LO_ActualHPLossPctInCurrentCombat(0, _ActualHPLossPct);
+
+//QrySetDesiredAndActualHPLossDiff, call when combat ends, before determine the tension bias
+QRY
+QrySetDesiredAndActualHPLossDiff()
+AND
+DB_LO_ActualHPLossPctInCurrentCombat(0, _ActualHPLossPct)
+AND
+DB_LO_DesiredHPLossPctOfCurrentCombat(0, _DesiredHPLossPct)
+AND
+RealSubtract(_DesiredHPLossPct, _ActualHPLossPct, _HPLossDiff)
+AND
+DB_LO_DesiredHPLossAndActualHPLossDiff(0, _Old)
+THEN
+NOT DB_LO_DesiredHPLossAndActualHPLossDiff(0, _Old);
+DB_LO_DesiredHPLossAndActualHPLossDiff(0, _HPLossDiff);
+
+//QryPassedCheck()
+QRY
+QryPassedCheck((STRING)_Str)
+THEN
+DebugBreak(_Str);
+
+QRY
+QryForceAllJoinCombat((CHARACTERGUID)_Player)
+AND
+DB_AT_IsPlayer(_Char)
+AND
+CharacterIsInCombat(_Char, _Stat)
+AND
+_Stat == 0
+THEN
+EnterCombat((GUIDSTRING)_Char, (GUIDSTRING)_Player);
+DB_NOOP(1);
+
+// Debug Character Enter Combat
+IF
+ObjectEnteredCombat(_Char, _CombatID)
+AND
+DB_IsPlayer((CHARACTERGUID)_Char)
+AND
+QrySetCurrentCombatAvgHP()
+AND
+DB_LO_CurrentCombatAvgHP(0, _Pct)
+AND
+Integer(_Pct, _Int)
+AND
+IntegertoString(_Int, _Str)
+AND
+StringConcatenate("Current Team Avg HP: ", _Str, _Out)
+AND
+QryRegisterEnterCombatHP()
+AND
+QryForceAllJoinCombat(_Char)
+AND
+QryResetCurrentCombatDmg()
+THEN
+GlobalSetFlag("OnCombatEntered");
+DebugBreak(_Out);
+
+QRY
+QryResetCurrentCombatDmg()
+AND
+DB_LO_ActualHPLossPctInCurrentCombat(0, _Old)
+THEN
+NOT DB_LO_ActualHPLossPctInCurrentCombat(0, _Old);
+DB_LO_ActualHPLossPctInCurrentCombat(0, 0.0);
+DB_NOOP(1);
+
+IF
+CharacterReceivedDamage(_Char, _Pct, _)
+AND
+GlobalGetFlag("OnCombatEntered", _State)
+AND
+_State == 1
+AND
+QryPassedCheck("Received Dmg")
+AND
+DB_AT_IsPlayer(_Char)
+AND
+QryPassedCheck("Is Character")
+AND
+DB_LO_ActualHPLossPctInCurrentCombat(0, _RawDmgIncursion)
+AND
+QryPassedCheck("Initial Dmg Incursion founding")
+AND
+SysCount("DB_AT_IsPlayer", 1, _PlayerCounts)
+AND
+QryPassedCheck("Player Counts founding")
+AND
+Real(_Pct, _RealPct)
+AND
+Real(_PlayerCounts, _RealPlayerCounts)
+AND
+RealDivide(_RealPct, _RealPlayerCounts, _RealAvgHpLoss)
+AND
+RealProduct(_RealAvgHpLoss, 0.01, _RealAvgHpLossPct)
+AND
+RealSum(_RealAvgHpLossPct, _RawDmgIncursion, _TotalAvgDmgIncursion)
+AND
+QryPassedCheck("Ready to Log")
+THEN
+NOT DB_LO_ActualHPLossPctInCurrentCombat(0, _RawDmgIncursion);
+DB_LO_ActualHPLossPctInCurrentCombat(0, _TotalAvgDmgIncursion);
+DebugBreak("Damage Registered");
+
+// Debug Character HP
+IF
+ObjectLeftCombat(_Char, _CombatID)
+AND
+DB_IsPlayer((CHARACTERGUID)_Char)
+AND
+DB_AT_IsPlayer(_Player)
+AND
+CharacterGetHitpointsPercentage(_Player, _HP)
+AND
+Integer(_HP, _IntHP)
+AND
+IntegertoString(_IntHP, _Str)
+AND
+StringConcatenate("Character HP: ", _Str, _Out)
+THEN
+//ShowNotification(_Player, _Out);
+DebugBreak(_Out);
+
+IF
+ObjectLeftCombat(_Char, _CombatID)
+AND
+DB_IsPlayer((CHARACTERGUID)_Char)
+AND
+SysCount("DB_AT_IsPlayer", 1, _NumPartyMembers)
+AND
+IntegertoString(_NumPartyMembers, _String)
+AND
+StringConcatenate("Combat Finished, With Player ",_String, _Output)
+THEN
+DebugBreak(_Output);
+
+IF
+ObjectLeftCombat(_Char, _CombatID)
+AND
+DB_IsPlayer((CHARACTERGUID)_Char)
+AND
+NOT DB_Dead((CHARACTERGUID)_Char)
+AND
+SysCount("DB_AT_IsPlayer", 1, _NumPartyMembers)
+AND
+_NumPartyMembers > 0
+AND
+QrySetCurrentCombatAvgHP()
+AND
+IntegertoString(_NumPartyMembers, _DebugOut)
+AND
+StringConcatenate(_DebugOut, " DDA Bias Factor Gathered", _Out)
+AND
+DB_LO_CurrentCombatAvgHP(0, _AvgHP)
+AND
+Integer(_AvgHP, _IntAvgHP)
+AND
+IntegertoString(_IntAvgHP, _StrCount)
+//AND
+//QryRegisterLeaveCombatHP()
+//AND
+//QrySetActualHPLossPct()
+AND
+QryPassedCheck("LeaveCombatHPRegistered")
+AND
+QrySetDesiredAndActualHPLossDiff()
+AND
+QryPassedCheck("Diff Set!")
+THEN
+//GlobalSetFlag("GLO_TombCombatTest_Finished");
+DebugBreak("DDA Combat Finished");
+DebugBreak(_Out);
+DebugBreak(_StrCount);
+ProcSetTensionBias();
+Proc_IncrementCombatID();
+Proc_ResetSpawnPotion();
+PROC_PerformReactivePolicy();
+ShowNotification((CHARACTERGUID)_Char,_Out);
+GlobalClearFlag("OnCombatEntered");
+//CharacterSetHitpointsPercentage(_Char, 0.9);
+
+PROC
+Proc_ResetSpawnPotion()
+THEN
+SysClear("DB_LO_PotionAlreadySpawned", 2);
+DB_LO_PotionAlreadySpawned(0, 0);
+
+PROC
+Proc_IncrementCombatID()
+AND
+DB_LO_CurrentCombat(0, _CurCombat, _CurTension)
+AND
+IntegerSum(_CurCombat, 1, _NewCombatID)
+AND
+DB_LO_CombatTensionPair(_NewCombatID, _NewTension)
+AND
+DB_LO_PotionAlreadySpawned(0, _Result)
+THEN
+NOT DB_LO_CurrentCombat(0, _CurCombat, _CurTension);
+DB_LO_CurrentCombat(0, _NewCombatID, _NewTension);
+
+//PROC set tension bias based on test combat hp percentage
+//TODO: Change This to Use Actual HP Loss vs. Desired HP Loss Diff
+PROC
+ProcSetTensionBias()
+AND
+DB_LO_DesiredHPLossAndActualHPLossDiff(0, _Diff)
+AND
+_Diff > 0.9
+AND
+DB_LO_PlayerTensionBiasFromTest(0.9, _Bias)
+AND
+DB_LO_CurrentCampaignTensionBias(0, _RawBias)
+AND
+IntegerSum(_Bias, _RawBias, _SumBias)
+AND
+Real(_SumBias, _RealSumBias)
+AND
+RealDivide(_RealSumBias, 2.0, _AvgBias)
+AND
+Integer(_AvgBias, _IntAvgBias)
+THEN
+NOT DB_LO_CurrentCampaignTensionBias(0, _RawBias);
+DB_LO_CurrentCampaignTensionBias(0, _IntAvgBias);
+DebugBreak("Bias tension at 90%");
+
+PROC
+ProcSetTensionBias()
+AND
+DB_LO_DesiredHPLossAndActualHPLossDiff(0, _Diff)
+AND
+_Diff > 0.8
+AND
+_Diff <= 0.9
+AND
+DB_LO_PlayerTensionBiasFromTest(0.8, _Bias)
+AND
+DB_LO_CurrentCampaignTensionBias(0, _RawBias)
+AND
+IntegerSum(_Bias, _RawBias, _SumBias)
+AND
+Real(_SumBias, _RealSumBias)
+AND
+RealDivide(_RealSumBias, 2.0, _AvgBias)
+AND
+Integer(_AvgBias, _IntAvgBias)
+THEN
+NOT DB_LO_CurrentCampaignTensionBias(0, _RawBias);
+DB_LO_CurrentCampaignTensionBias(0, _IntAvgBias);
+DebugBreak("Bias tension at 80%");
+
+PROC
+ProcSetTensionBias()
+AND
+DB_LO_DesiredHPLossAndActualHPLossDiff(0, _Diff)
+AND
+_Diff > 0.7
+AND
+_Diff <= 0.8
+AND
+DB_LO_PlayerTensionBiasFromTest(0.7, _Bias)
+AND
+DB_LO_CurrentCampaignTensionBias(0, _RawBias)
+AND
+IntegerSum(_Bias, _RawBias, _SumBias)
+AND
+Real(_SumBias, _RealSumBias)
+AND
+RealDivide(_RealSumBias, 2.0, _AvgBias)
+AND
+Integer(_AvgBias, _IntAvgBias)
+THEN
+NOT DB_LO_CurrentCampaignTensionBias(0, _RawBias);
+DB_LO_CurrentCampaignTensionBias(0, _IntAvgBias);
+DebugBreak("Bias tension at 70%");
+
+PROC
+ProcSetTensionBias()
+AND
+DB_LO_DesiredHPLossAndActualHPLossDiff(0, _Diff)
+AND
+_Diff > 0.6
+AND
+_Diff <= 0.7
+AND
+DB_LO_PlayerTensionBiasFromTest(0.6, _Bias)
+AND
+DB_LO_CurrentCampaignTensionBias(0, _RawBias)
+AND
+IntegerSum(_Bias, _RawBias, _SumBias)
+AND
+Real(_SumBias, _RealSumBias)
+AND
+RealDivide(_RealSumBias, 2.0, _AvgBias)
+AND
+Integer(_AvgBias, _IntAvgBias)
+THEN
+NOT DB_LO_CurrentCampaignTensionBias(0, _RawBias);
+DB_LO_CurrentCampaignTensionBias(0, _IntAvgBias);
+DebugBreak("Bias tension at 60%");
+
+PROC
+ProcSetTensionBias()
+AND
+DB_LO_DesiredHPLossAndActualHPLossDiff(0, _Diff)
+AND
+_Diff > 0.5
+AND
+_Diff <= 0.6
+AND
+DB_LO_PlayerTensionBiasFromTest(0.5, _Bias)
+AND
+DB_LO_CurrentCampaignTensionBias(0, _RawBias)
+AND
+IntegerSum(_Bias, _RawBias, _SumBias)
+AND
+Real(_SumBias, _RealSumBias)
+AND
+RealDivide(_RealSumBias, 2.0, _AvgBias)
+AND
+Integer(_AvgBias, _IntAvgBias)
+THEN
+NOT DB_LO_CurrentCampaignTensionBias(0, _RawBias);
+DB_LO_CurrentCampaignTensionBias(0, _IntAvgBias);
+DebugBreak("Bias tension at 50%");
+
+PROC
+ProcSetTensionBias()
+AND
+DB_LO_DesiredHPLossAndActualHPLossDiff(0, _Diff)
+AND
+_Diff > 0.4
+AND
+_Diff <= 0.5
+AND
+DB_LO_PlayerTensionBiasFromTest(0.4, _Bias)
+AND
+DB_LO_CurrentCampaignTensionBias(0, _RawBias)
+AND
+IntegerSum(_Bias, _RawBias, _SumBias)
+AND
+Real(_SumBias, _RealSumBias)
+AND
+RealDivide(_RealSumBias, 2.0, _AvgBias)
+AND
+Integer(_AvgBias, _IntAvgBias)
+THEN
+NOT DB_LO_CurrentCampaignTensionBias(0, _RawBias);
+DB_LO_CurrentCampaignTensionBias(0, _IntAvgBias);
+DebugBreak("Bias tension at 40%");
+
+PROC
+ProcSetTensionBias()
+AND
+DB_LO_DesiredHPLossAndActualHPLossDiff(0, _Diff)
+AND
+_Diff > 0.3
+AND
+_Diff <= 0.4
+AND
+DB_LO_PlayerTensionBiasFromTest(0.3, _Bias)
+AND
+DB_LO_CurrentCampaignTensionBias(0, _RawBias)
+AND
+IntegerSum(_Bias, _RawBias, _SumBias)
+AND
+Real(_SumBias, _RealSumBias)
+AND
+RealDivide(_RealSumBias, 2.0, _AvgBias)
+AND
+Integer(_AvgBias, _IntAvgBias)
+THEN
+NOT DB_LO_CurrentCampaignTensionBias(0, _RawBias);
+DB_LO_CurrentCampaignTensionBias(0, _IntAvgBias);
+DebugBreak("Bias tension at 30%");
+
+PROC
+ProcSetTensionBias()
+AND
+DB_LO_DesiredHPLossAndActualHPLossDiff(0, _Diff)
+AND
+_Diff > 0.2
+AND
+_Diff <= 0.3
+AND
+DB_LO_PlayerTensionBiasFromTest(0.2, _Bias)
+AND
+DB_LO_CurrentCampaignTensionBias(0, _RawBias)
+AND
+IntegerSum(_Bias, _RawBias, _SumBias)
+AND
+Real(_SumBias, _RealSumBias)
+AND
+RealDivide(_RealSumBias, 2.0, _AvgBias)
+AND
+Integer(_AvgBias, _IntAvgBias)
+THEN
+NOT DB_LO_CurrentCampaignTensionBias(0, _RawBias);
+DB_LO_CurrentCampaignTensionBias(0, _IntAvgBias);
+DebugBreak("Bias tension at 20%");
+
+PROC
+ProcSetTensionBias()
+AND
+DB_LO_DesiredHPLossAndActualHPLossDiff(0, _Diff)
+AND
+_Diff > 0.1
+AND
+_Diff <= 0.2
+AND
+DB_LO_PlayerTensionBiasFromTest(0.1, _Bias)
+AND
+DB_LO_CurrentCampaignTensionBias(0, _RawBias)
+AND
+IntegerSum(_Bias, _RawBias, _SumBias)
+AND
+Real(_SumBias, _RealSumBias)
+AND
+RealDivide(_RealSumBias, 2.0, _AvgBias)
+AND
+Integer(_AvgBias, _IntAvgBias)
+THEN
+NOT DB_LO_CurrentCampaignTensionBias(0, _RawBias);
+DB_LO_CurrentCampaignTensionBias(0, _IntAvgBias);
+DebugBreak("Bias tension at 10%");
+
+PROC
+ProcSetTensionBias()
+AND
+DB_LO_DesiredHPLossAndActualHPLossDiff(0, _Diff)
+AND
+_Diff > 0.0
+AND
+_Diff <= 0.1
+AND
+DB_LO_PlayerTensionBiasFromTest(0.0, _Bias)
+AND
+DB_LO_CurrentCampaignTensionBias(0, _RawBias)
+AND
+IntegerSum(_Bias, _RawBias, _SumBias)
+AND
+Real(_SumBias, _RealSumBias)
+AND
+RealDivide(_RealSumBias, 2.0, _AvgBias)
+AND
+Integer(_AvgBias, _IntAvgBias)
+THEN
+NOT DB_LO_CurrentCampaignTensionBias(0, _RawBias);
+DB_LO_CurrentCampaignTensionBias(0, _IntAvgBias);
+DebugBreak("Bias tension at 0%");
+
+PROC
+ProcSetTensionBias()
+AND
+DB_LO_DesiredHPLossAndActualHPLossDiff(0, _Diff)
+AND
+_Diff > -0.1
+AND
+_Diff <= 0.0
+AND
+DB_LO_PlayerTensionBiasFromTest(-0.1, _Bias)
+AND
+DB_LO_CurrentCampaignTensionBias(0, _RawBias)
+AND
+IntegerSum(_Bias, _RawBias, _SumBias)
+AND
+Real(_SumBias, _RealSumBias)
+AND
+RealDivide(_RealSumBias, 2.0, _AvgBias)
+AND
+Integer(_AvgBias, _IntAvgBias)
+THEN
+NOT DB_LO_CurrentCampaignTensionBias(0, _RawBias);
+DB_LO_CurrentCampaignTensionBias(0, _IntAvgBias);
+DebugBreak("Bias tension at -10%");
+
+PROC
+ProcSetTensionBias()
+AND
+DB_LO_DesiredHPLossAndActualHPLossDiff(0, _Diff)
+AND
+_Diff > -0.2
+AND
+_Diff <= -0.1
+AND
+DB_LO_PlayerTensionBiasFromTest(-0.2, _Bias)
+AND
+DB_LO_CurrentCampaignTensionBias(0, _RawBias)
+AND
+IntegerSum(_Bias, _RawBias, _SumBias)
+AND
+Real(_SumBias, _RealSumBias)
+AND
+RealDivide(_RealSumBias, 2.0, _AvgBias)
+AND
+Integer(_AvgBias, _IntAvgBias)
+THEN
+NOT DB_LO_CurrentCampaignTensionBias(0, _RawBias);
+DB_LO_CurrentCampaignTensionBias(0, _IntAvgBias);
+DebugBreak("Bias tension at -20%");
+
+PROC
+ProcSetTensionBias()
+AND
+DB_LO_DesiredHPLossAndActualHPLossDiff(0, _Diff)
+AND
+_Diff > -0.3
+AND
+_Diff <= -0.2
+AND
+DB_LO_PlayerTensionBiasFromTest(-0.3, _Bias)
+AND
+DB_LO_CurrentCampaignTensionBias(0, _RawBias)
+AND
+IntegerSum(_Bias, _RawBias, _SumBias)
+AND
+Real(_SumBias, _RealSumBias)
+AND
+RealDivide(_RealSumBias, 2.0, _AvgBias)
+AND
+Integer(_AvgBias, _IntAvgBias)
+THEN
+NOT DB_LO_CurrentCampaignTensionBias(0, _RawBias);
+DB_LO_CurrentCampaignTensionBias(0, _IntAvgBias);
+DebugBreak("Bias tension at -30%");
+
+PROC
+ProcSetTensionBias()
+AND
+DB_LO_DesiredHPLossAndActualHPLossDiff(0, _Diff)
+AND
+_Diff > -0.4
+AND
+_Diff <= -0.3
+AND
+DB_LO_PlayerTensionBiasFromTest(-0.4, _Bias)
+AND
+DB_LO_CurrentCampaignTensionBias(0, _RawBias)
+AND
+IntegerSum(_Bias, _RawBias, _SumBias)
+AND
+Real(_SumBias, _RealSumBias)
+AND
+RealDivide(_RealSumBias, 2.0, _AvgBias)
+AND
+Integer(_AvgBias, _IntAvgBias)
+THEN
+NOT DB_LO_CurrentCampaignTensionBias(0, _RawBias);
+DB_LO_CurrentCampaignTensionBias(0, _IntAvgBias);
+DebugBreak("Bias tension at -40%");
+
+PROC
+ProcSetTensionBias()
+AND
+DB_LO_DesiredHPLossAndActualHPLossDiff(0, _Diff)
+AND
+_Diff > -0.5
+AND
+_Diff <= -0.4
+AND
+DB_LO_PlayerTensionBiasFromTest(-0.5, _Bias)
+AND
+DB_LO_CurrentCampaignTensionBias(0, _RawBias)
+AND
+IntegerSum(_Bias, _RawBias, _SumBias)
+AND
+Real(_SumBias, _RealSumBias)
+AND
+RealDivide(_RealSumBias, 2.0, _AvgBias)
+AND
+Integer(_AvgBias, _IntAvgBias)
+THEN
+NOT DB_LO_CurrentCampaignTensionBias(0, _RawBias);
+DB_LO_CurrentCampaignTensionBias(0, _IntAvgBias);
+DebugBreak("Bias tension at -50%");
+
+PROC
+ProcSetTensionBias()
+AND
+DB_LO_DesiredHPLossAndActualHPLossDiff(0, _Diff)
+AND
+_Diff > -0.6
+AND
+_Diff <= -0.5
+AND
+DB_LO_PlayerTensionBiasFromTest(-0.6, _Bias)
+AND
+DB_LO_CurrentCampaignTensionBias(0, _RawBias)
+AND
+IntegerSum(_Bias, _RawBias, _SumBias)
+AND
+Real(_SumBias, _RealSumBias)
+AND
+RealDivide(_RealSumBias, 2.0, _AvgBias)
+AND
+Integer(_AvgBias, _IntAvgBias)
+THEN
+NOT DB_LO_CurrentCampaignTensionBias(0, _RawBias);
+DB_LO_CurrentCampaignTensionBias(0, _IntAvgBias);
+DebugBreak("Bias tension at -60%");
+
+PROC
+ProcSetTensionBias()
+AND
+DB_LO_DesiredHPLossAndActualHPLossDiff(0, _Diff)
+AND
+_Diff > -0.7
+AND
+_Diff <= -0.6
+AND
+DB_LO_PlayerTensionBiasFromTest(-0.7, _Bias)
+AND
+DB_LO_CurrentCampaignTensionBias(0, _RawBias)
+AND
+IntegerSum(_Bias, _RawBias, _SumBias)
+AND
+Real(_SumBias, _RealSumBias)
+AND
+RealDivide(_RealSumBias, 2.0, _AvgBias)
+AND
+Integer(_AvgBias, _IntAvgBias)
+THEN
+NOT DB_LO_CurrentCampaignTensionBias(0, _RawBias);
+DB_LO_CurrentCampaignTensionBias(0, _IntAvgBias);
+DebugBreak("Bias tension at -70%");
+
+PROC
+ProcSetTensionBias()
+AND
+DB_LO_DesiredHPLossAndActualHPLossDiff(0, _Diff)
+AND
+_Diff > -0.8
+AND
+_Diff <= -0.7
+AND
+DB_LO_PlayerTensionBiasFromTest(-0.8, _Bias)
+AND
+DB_LO_CurrentCampaignTensionBias(0, _RawBias)
+AND
+IntegerSum(_Bias, _RawBias, _SumBias)
+AND
+Real(_SumBias, _RealSumBias)
+AND
+RealDivide(_RealSumBias, 2.0, _AvgBias)
+AND
+Integer(_AvgBias, _IntAvgBias)
+THEN
+NOT DB_LO_CurrentCampaignTensionBias(0, _RawBias);
+DB_LO_CurrentCampaignTensionBias(0, _IntAvgBias);
+DebugBreak("Bias tension at -80%");
+
+PROC
+ProcSetTensionBias()
+AND
+DB_LO_DesiredHPLossAndActualHPLossDiff(0, _Diff)
+AND
+_Diff > -0.9
+AND
+_Diff <= -0.8
+AND
+DB_LO_PlayerTensionBiasFromTest(-0.9, _Bias)
+AND
+DB_LO_CurrentCampaignTensionBias(0, _RawBias)
+AND
+IntegerSum(_Bias, _RawBias, _SumBias)
+AND
+Real(_SumBias, _RealSumBias)
+AND
+RealDivide(_RealSumBias, 2.0, _AvgBias)
+AND
+Integer(_AvgBias, _IntAvgBias)
+THEN
+NOT DB_LO_CurrentCampaignTensionBias(0, _RawBias);
+DB_LO_CurrentCampaignTensionBias(0, _IntAvgBias);
+DebugBreak("Bias tension at -90%");
+
+PROC
+ProcSetTensionBias()
+AND
+DB_LO_DesiredHPLossAndActualHPLossDiff(0, _Diff)
+AND
+_Diff > -1.0
+AND
+_Diff <= -0.9
+AND
+DB_LO_PlayerTensionBiasFromTest(-1.0, _Bias)
+AND
+DB_LO_CurrentCampaignTensionBias(0, _RawBias)
+AND
+IntegerSum(_Bias, _RawBias, _SumBias)
+AND
+Real(_SumBias, _RealSumBias)
+AND
+RealDivide(_RealSumBias, 2.0, _AvgBias)
+AND
+Integer(_AvgBias, _IntAvgBias)
+THEN
+NOT DB_LO_CurrentCampaignTensionBias(0, _RawBias);
+DB_LO_CurrentCampaignTensionBias(0, _IntAvgBias);
+DebugBreak("Bias tension at -100%");
+
+//ProcSetGlobalTensionStackForCurrentCombat()
+QRY
+QrySetGlobalTensionStackForCurrentCombat((REAL)_DesiredTension) //0.3 tension
+AND
+SysCount("DB_AT_IsPlayer", 1, _PlayerCounts) //4
+//AND
+//Real(_PlayerCounts, _RealPlayerCounts) //4.0
+AND
+DB_LO_CurrentCampaignTensionBias(0, _Bias) //0
+AND
+IntegerSum(_PlayerCounts, _Bias, _TempSum) //4+0=4
+AND
+DB_LO_DesignTensionBias(_DesiredTension, _DesignTensionBias) //-1
+AND
+IntegerSum(_TempSum, _DesignTensionBias, _TempSum2) //4-1=3
+AND
+IntegerProduct(_TempSum2, 2, _CalculatedInitialStack)
+//AND
+//QrySetCurrentCombatAvgHP()
+//AND
+//QrySetEnterCombatAvgHPBias()
+//AND
+//DB_LO_CurrentCombatAvgHP(0, _AvgHP) //100
+//AND
+//RealProduct(_AvgHP, 0.0099, _AvgHPPct) //0.99
+//AND
+//DB_LO_CurrentCombatHPBias(0, _HPBias) //0
+//AND
+//IntegerSum(_TempSum2, _HPBias, _TempSum3) //3+0=3
+//AND
+//IntegerMax(_TempSum2, 1, _ClampedSum) //avoid negative value
+//AND
+//IntegerProduct(_ClampedSum, 2, _Product) //3*2=6
+AND
+DB_LO_MaxTensionStack(_DesiredTension, _MaxStack) //1
+AND
+IntegerSum(_MaxStack, _PlayerCounts, _PlayerCountsPlusMaxStackFromTable)
+AND
+IntegerMax(_PlayerCountsPlusMaxStackFromTable, 1, _ClampedPlayerCountsPlusMaxStackFromTable)
+AND
+IntegerProduct(_ClampedPlayerCountsPlusMaxStackFromTable, 2, _FinalMaxStack) //8
+//AND
+//IntegerSum(_MaxStack, _DoublePlayerCounts, _AdjustedMaxStack) //8+1 = 9
+//AND
+//IntegerMax(_AdjustedMaxStack, 1, _MaxClampedStack) //Min(6,9) = 6
+//AND
+//RealProduct(_AvgHPPct, _RealPlayerCounts, _AdjustedMinStack) //0.99*4 = 3.96
+//AND
+//RealSum(_AdjustedMinStack, 1.0, _RoundedMinStack) //3.96 + 1 = 4.96
+//AND
+//Integer(_RoundedMinStack, _FloorMinStack) //4
+//AND
+//Real(_FloorMinStack, _RealFloorMinStack) //4.0
+//AND
+//RealProduct(_RealFloorMinStack, 2.0, _DoubledRoundedMinStack) //4.0*2=8.0
+AND
+DB_LO_MinTensionStack(_DesiredTension, _MinStack) // -1
+AND
+IntegerSum(_MinStack, _PlayerCounts, _PlayerCountsPlusMinStackFromTable)
+AND
+IntegerMax(_PlayerCountsPlusMinStackFromTable, 1, _ClampedPlayerCountsPlusMinStackFromTable)
+AND
+IntegerProduct(_ClampedPlayerCountsPlusMinStackFromTable, 2, _FinalMinStack) //8
+//AND
+//IntegerProduct(_PlayerCounts, 2, _DoublePlayerCounts) //8
+//AND
+//IntegerSum(_MinStack, _DoublePlayerCounts, _AdjustedMinStack) //8+1 = 9
+//AND
+//IntegerMax(_AdjustedMinStack, 1, _MinClampedStack) //Min(6,9) = 6
+//AND
+//Real(_PredefinedMinStack, _RealPredefinedMinStack) //-2.0
+//AND
+//RealSum(_DoubledRoundedMinStack, _RealPredefinedMinStack, _RealFinalMinStack) //8.0 - 2.0 = 6.0
+//AND
+//Integer(_RealFinalMinStack, _IntFinalMinStack) //6
+AND
+IntegerMax(_CalculatedInitialStack, _FinalMinStack, _MinClampedFinalStack) //Max(1,6) = 6
+AND
+IntegerMin(_MinClampedFinalStack, _FinalMaxStack, _FinalClampedStack) //Max(6 , 6) = 6
+AND
+IntegertoString(_FinalClampedStack, _StringFinalStack)
+AND
+StringConcatenate("DDAed Stack Confirmed: ", _StringFinalStack, _DebugLog)
+AND
+DB_LO_DDAed_Stack(0, _RawTension)
+THEN
+NOT DB_LO_DDAed_Stack(0, _RawTension);
+DB_LO_DDAed_Stack(0, _FinalClampedStack);
+DebugBreak(_DebugLog);
+
+//QrySetEnterCombatAvgHPBias()
+QRY
+QrySetEnterCombatAvgHPBias()
+AND
+DB_LO_CurrentCombatAvgHP(0, _CurrentAvgHP)
+AND
+DB_LO_CurrentCombatHPBias(0, _RawBias)
+AND
+_CurrentAvgHP < 30.0
+AND
+QryPassedCheck("0.0")
+AND
+DB_LO_EnterCombatHPBias(0.0, _NewBias)
+THEN
+NOT DB_LO_CurrentCombatHPBias(0, _RawBias);
+DB_LO_CurrentCombatHPBias(0, _NewBias);
+DebugBreak("Current Avg HP > 0.0%");
+
+QRY
+QrySetEnterCombatAvgHPBias()
+AND
+DB_LO_CurrentCombatAvgHP(0, _CurrentAvgHP)
+AND
+DB_LO_CurrentCombatHPBias(0, _RawBias)
+AND
+_CurrentAvgHP <= 50.0
+AND
+_CurrentAvgHP > 30.0
+AND
+QryPassedCheck("30.0")
+AND
+DB_LO_EnterCombatHPBias(30.0, _NewBias)
+THEN
+NOT DB_LO_CurrentCombatHPBias(0, _RawBias);
+DB_LO_CurrentCombatHPBias(0, _NewBias);
+DebugBreak("Current Avg HP > 30.0%");
+
+QRY
+QrySetEnterCombatAvgHPBias()
+AND
+DB_LO_CurrentCombatAvgHP(0, _CurrentAvgHP)
+AND
+DB_LO_CurrentCombatHPBias(0, _RawBias)
+AND
+_CurrentAvgHP <= 70.0
+AND
+_CurrentAvgHP > 50.0
+AND
+QryPassedCheck("50.0")
+AND
+DB_LO_EnterCombatHPBias(50.0, _NewBias)
+THEN
+NOT DB_LO_CurrentCombatHPBias(0, _RawBias);
+DB_LO_CurrentCombatHPBias(0, _NewBias);
+DebugBreak("Current Avg HP > 50.0%");
+
+QRY
+QrySetEnterCombatAvgHPBias()
+AND
+DB_LO_CurrentCombatAvgHP(0, _CurrentAvgHP)
+AND
+DB_LO_CurrentCombatHPBias(0, _RawBias)
+AND
+_CurrentAvgHP <= 90.0
+AND
+_CurrentAvgHP > 70.0
+AND
+QryPassedCheck("70.0")
+AND
+DB_LO_EnterCombatHPBias(70.0, _NewBias)
+THEN
+NOT DB_LO_CurrentCombatHPBias(0, _RawBias);
+DB_LO_CurrentCombatHPBias(0, _NewBias);
+DebugBreak("Current Avg HP > 70.0%");
+
+QRY
+QrySetEnterCombatAvgHPBias()
+AND
+DB_LO_CurrentCombatAvgHP(0, _CurrentAvgHP)
+AND
+DB_LO_CurrentCombatHPBias(0, _RawBias)
+AND
+_CurrentAvgHP > 90.0
+AND
+QryPassedCheck("90.0")
+AND
+DB_LO_EnterCombatHPBias(90.0, _NewBias)
+AND
+QryPassedCheck("New bias valid")
+THEN
+NOT DB_LO_CurrentCombatHPBias(0, _RawBias);
+DB_LO_CurrentCombatHPBias(0, _NewBias);
+DebugBreak("Current Avg HP > 90.0%");
+
+//QryResetCurrentCombatAvgHP()
+QRY
+QryResetCurrentCombatAvgHP()
+AND
+DB_LO_CurrentCombatAvgHP(0, _RawHP)
+THEN
+NOT DB_LO_CurrentCombatAvgHP(0, _RawHP);
+DB_LO_CurrentCombatAvgHP(0, 0.0);
+DebugBreak("Combat avg HP reset finished!");
+DB_NOOP(1);
+
+//QrySetCurrentCombatHPBias
+QRY
+QrySetCurrentCombatAvgHP()
+AND
+QryResetCurrentCombatAvgHP()
+AND
+DB_AT_IsPlayer(_Player)
+AND
+CharacterGetHitpointsPercentage(_Player, _Pct)
+AND
+SysCount("DB_AT_IsPlayer", 1, _PlayerCount)
+AND
+Real(_PlayerCount, _RealPlayerCount)
+AND
+RealDivide(_Pct, _RealPlayerCount, _AveragePct)
+AND
+DB_LO_CurrentCombatAvgHP(0, _TempPct)
+AND
+RealSum(_AveragePct, _TempPct, _SumPct)
+AND
+Integer(_SumPct, _IntSumPct)
+AND
+IntegertoString(_IntSumPct, _StringSumPct)
+THEN
+NOT DB_LO_CurrentCombatAvgHP(0, _TempPct);
+DB_LO_CurrentCombatAvgHP(0, _SumPct);
+DebugBreak(_StringSumPct);
+
+//QryResetCurrentCombatAvgHP()
+QRY
+QryResetCurrentAvgHP()
+AND
+DB_LO_CurrentAvgHP(0, _RawHP)
+THEN
+NOT DB_LO_CurrentAvgHP(0, _RawHP);
+DB_LO_CurrentAvgHP(0, 0.0);
+DebugBreak("Combat avg HP reset finished!");
+DB_NOOP(1);
+
+//QrySetCurrentCombatHPBias
+QRY
+QryGetCurrentAvgHP()
+AND
+QryResetCurrentAvgHP()
+AND
+DB_AT_IsPlayer(_Player)
+AND
+CharacterGetHitpointsPercentage(_Player, _Pct)
+AND
+SysCount("DB_AT_IsPlayer", 1, _PlayerCount)
+AND
+Real(_PlayerCount, _RealPlayerCount)
+AND
+RealDivide(_Pct, _RealPlayerCount, _AveragePct)
+AND
+DB_LO_CurrentAvgHP(0, _TempPct)
+AND
+RealSum(_AveragePct, _TempPct, _SumPct)
+THEN
+NOT DB_LO_CurrentAvgHP(0, _TempPct);
+DB_LO_CurrentAvgHP(0, _SumPct);
+
+//ProcSpawnDDACombatAtTrigger((TRIGGERGUID)_Trigger, (REAL)_DesiredTension, (STRING)_TensionGroup)
+PROC
+ProcSpawnDDACombatAtTrigger((TRIGGERGUID)_Trigger, (REAL)_DesiredTension)
+AND
+QrySetDesiredHPLossForCurrentCombat(_DesiredTension)
+AND
+QrySetGlobalTensionStackForCurrentCombat(_DesiredTension)
+THEN
+ProcIterateSpawnCombat(_Trigger, _DesiredTension);
+NOT DB_LO_BiasedCombat_StackEmpty(1);
+DebugBreak("Spawn DDA Combat Func() Finished");
+
+PROC
+ProcIterateSpawnCombat((TRIGGERGUID)_Trigger, (REAL)_Tension)
+AND
+DB_LO_ForLoop(_Index)
+//AND
+//QryTensionStackIsNotEmpty()
+AND
+NOT DB_LO_BiasedCombat_StackEmpty(1)
+AND
+QryRandomFromGroupAtTrigger(_Trigger, _Tension)
+AND
+IntegertoString(_Index, _IndexString)
+THEN
+DebugBreak(_IndexString);
+
+// PROC
+// ProcIterateSpawnCombat((TRIGGERGUID)_Trigger, (REAL)_Tension)
+// THEN
+// NOT DB_LO_BiasedCombat_StackEmpty(1);
+QRY
+QryTensionStackIsNotEmpty()
+AND
+DB_LO_DDAed_Stack(0,_Stack)
+AND
+_Stack > 0
+AND
+IntegertoString(_Stack, _String)
+AND
+StringConcatenate("Remaining Stack: ",_String, _DebugOutput)
+THEN
+DebugBreak(_DebugOutput);
+DB_NOOP(1);
+
+//QryResetTeamAvgLevel
+QRY
+QryResetTeamAvgLevel()
+AND
+DB_LO_TeamAvgLevel(0, _RawLV)
+THEN
+NOT DB_LO_TeamAvgLevel(0, _RawLV);
+DB_LO_TeamAvgLevel(0, 0.0);
+DebugBreak("Team Avg Level Reset Finished");
+DB_NOOP(1);
+
+//QrySetTeamAvgLevel
+QRY
+QrySetTeamAvgLevel()
+AND
+QryResetTeamAvgLevel()
+AND
+DB_AT_IsPlayer(_Player)
+AND
+CharacterGetLevel(_Player, _LV)
+AND
+Real(_LV, _RealLV)
+AND
+SysCount("DB_AT_IsPlayer", 1, _PlayerCount)
+AND
+Real(_PlayerCount, _RealPlayerCount)
+AND
+RealDivide(_RealLV, _RealPlayerCount, _AverageLV)
+AND
+DB_LO_TeamAvgLevel(0, _TempLV)
+AND
+RealSum(_AverageLV, _TempLV, _SumLV)
+AND
+Integer(_SumLV, _IntSumLV)
+AND
+IntegertoString(_IntSumLV, _StringSumLV)
+THEN
+NOT DB_LO_TeamAvgLevel(0, _TempLV);
+DB_LO_TeamAvgLevel(0, _SumLV);
+DebugBreak(_StringSumLV);
+
+QRY
+QryRandomFromGroupAtTrigger((TRIGGERGUID)_Trigger, (REAL)_Tension)
+//AND
+//NOT DB_LO_BiasedCombat_StackEmpty(1)
+AND
+DB_LO_DDAed_Stack(0, _Stack)
+AND
+_Stack >= 4
+AND
+_Tension > 0.6
+AND
+Random(3, _GroupIndex)
+AND
+QrySpawnEnemyFromGroupAtTrigger(_Trigger, _GroupIndex)
+AND
+DB_LO_CurrentEnemyCreated(0, _Created)
+AND
+QrySetTeamAvgLevel()
+AND
+DB_LO_TeamAvgLevel(0, _LV)
+AND
+Integer(_LV, _IntLV)
+THEN
+CharacterLevelUpTo(_Created, _IntLV);
+DebugBreak("Spawned Enemies");
+DB_NOOP(1);
+
+QRY
+QryRandomFromGroupAtTrigger((TRIGGERGUID)_Trigger, (REAL)_Tension)
+//AND
+//NOT DB_LO_BiasedCombat_StackEmpty(1)
+AND
+DB_LO_DDAed_Stack(0, _Stack)
+AND
+_Stack > 0
+AND
+_Stack < 4
+AND
+_Tension > 0.6
+AND
+Random(2, _GroupIndex)
+AND
+QrySpawnEnemyFromGroupAtTrigger(_Trigger, _GroupIndex)
+AND
+DB_LO_CurrentEnemyCreated(0, _Created)
+AND
+QrySetTeamAvgLevel()
+AND
+DB_LO_TeamAvgLevel(0, _LV)
+AND
+Integer(_LV, _IntLV)
+THEN
+CharacterLevelUpTo(_Created, _IntLV);
+DebugBreak("Spawned Enemies");
+DB_NOOP(1);
+
+QRY
+QryRandomFromGroupAtTrigger((TRIGGERGUID)_Trigger, (REAL)_Tension)
+//AND
+//NOT DB_LO_BiasedCombat_StackEmpty(1)
+AND
+DB_LO_DDAed_Stack(0, _Stack)
+AND
+_Stack > 0
+AND
+_Stack < 2
+AND
+_Tension > 0.6
+AND
+QrySpawnEnemyFromGroupAtTrigger(_Trigger, 0)
+AND
+DB_LO_CurrentEnemyCreated(0, _Created)
+AND
+QrySetTeamAvgLevel()
+AND
+DB_LO_TeamAvgLevel(0, _LV)
+AND
+Integer(_LV, _IntLV)
+THEN
+CharacterLevelUpTo(_Created, _IntLV);
+DebugBreak("Spawned Enemies");
+DB_NOOP(1);
+
+QRY
+QryRandomFromGroupAtTrigger((TRIGGERGUID)_Trigger, (REAL)_Tension)
+//AND
+//NOT DB_LO_BiasedCombat_StackEmpty(1)
+AND
+DB_LO_DDAed_Stack(0, _Stack)
+AND
+_Stack >= 2
+AND
+_Tension > 0.4
+AND
+_Tension <= 0.6
+AND
+Random(2, _GroupIndex)
+AND
+QrySpawnEnemyFromGroupAtTrigger(_Trigger, _GroupIndex)
+AND
+DB_LO_CurrentEnemyCreated(0, _Created)
+AND
+QrySetTeamAvgLevel()
+AND
+DB_LO_TeamAvgLevel(0, _LV)
+AND
+Integer(_LV, _IntLV)
+THEN
+CharacterLevelUpTo(_Created, _IntLV);
+DebugBreak("Spawned Enemies");
+DB_NOOP(1);
+
+QRY
+QryRandomFromGroupAtTrigger((TRIGGERGUID)_Trigger, (REAL)_Tension)
+//AND
+//NOT DB_LO_BiasedCombat_StackEmpty(1)
+AND
+DB_LO_DDAed_Stack(0, _Stack)
+AND
+_Stack > 0
+AND
+_Stack < 2
+AND
+_Tension > 0.4
+AND
+_Tension <= 0.6
+AND
+Random(1, _GroupIndex)
+AND
+QrySpawnEnemyFromGroupAtTrigger(_Trigger, _GroupIndex)
+AND
+DB_LO_CurrentEnemyCreated(0, _Created)
+AND
+QrySetTeamAvgLevel()
+AND
+DB_LO_TeamAvgLevel(0, _LV)
+AND
+Integer(_LV, _IntLV)
+THEN
+CharacterLevelUpTo(_Created, _IntLV);
+DebugBreak("Spawned Enemies");
+DB_NOOP(1);
+
+QRY
+QryRandomFromGroupAtTrigger((TRIGGERGUID)_Trigger, (REAL)_Tension)
+//AND
+//NOT DB_LO_BiasedCombat_StackEmpty(1)
+AND
+DB_LO_DDAed_Stack(0, _Stack)
+AND
+_Stack > 0
+AND
+_Tension <= 0.4
+AND
+QrySpawnEnemyFromGroupAtTrigger(_Trigger, 0)
+AND
+DB_LO_CurrentEnemyCreated(0, _Created)
+AND
+QrySetTeamAvgLevel()
+AND
+DB_LO_TeamAvgLevel(0, _LV)
+AND
+Integer(_LV, _IntLV)
+THEN
+CharacterLevelUpTo(_Created, _IntLV);
+DebugBreak("Spawned Enemies");
+DB_NOOP(1);
+
+QRY
+QryRandomFromGroupAtTrigger((TRIGGERGUID)_Trigger, (REAL)_Tension)
+AND
+DB_LO_DDAed_Stack(0, _Stack)
+AND
+_Stack < 0 // equal to _Stack < 0
+AND
+QryPassedCheck("Negative Stack")
+AND
+DB_LO_CurrentEnemyCreated(0, _Char)
+AND
+QrySetTeamAvgLevel()
+AND
+DB_LO_TeamAvgLevel(0, _AvgLV)
+AND
+Integer(_AvgLV, _IntAvgLevel)
+AND
+IntegerSum(_IntAvgLevel, _Stack, _NewLevel)
+AND
+IntegerMax(_NewLevel, 1, _CharLevel)
+AND
+IntegertoString(_CharLevel, _Out)
+THEN
+DebugBreak("Stack less than 0");
+DebugBreak(_Out);
+DB_LO_BiasedCombat_StackEmpty(1);
+CharacterLevelUpTo(_Char, _CharLevel);
+
+QRY
+QryRandomFromGroupAtTrigger((TRIGGERGUID)_Trigger, (REAL)_Tension)
+AND
+DB_LO_DDAed_Stack(0, _Stack)
+AND
+_Stack == 0
+// AND
+// DB_LO_CurrentEnemyCreated(0, _Char)
+// AND
+// QrySetTeamAvgLevel()
+// AND
+// DB_LO_TeamAvgLevel(0, _AvgLV)
+// AND
+// Integer(_AvgLV, _IntAvgLevel)
+// AND
+// IntegerSum(_IntAvgLevel, _Stack, _NewLevel)
+// AND
+// IntegerMax(_NewLevel, 1, _CharLevel)
+THEN
+DebugBreak("Stack reached 0");
+DB_LO_BiasedCombat_StackEmpty(1);
+//CharacterLevelUpTo(_Char, _CharLevel);
+
+
+QRY
+QrySpawnEnemyFromGroupAtTrigger((TRIGGERGUID)_Trigger, (INTEGER)_GroupIndex)
+AND
+_GroupIndex == 0
+AND
+SysCount("DB_LowTension", 3, _EnemyCount)
+AND
+Random(_EnemyCount, _RandomEnemyIndex)
+AND
+DB_LowTension(_RandomEnemyIndex, _, _Enemy)
+AND
+GetRandomPositionInTrigger(_Trigger, _X, _Y, _Z)
+AND
+CharacterCreateAtPosition(_X, _Y, _Z, _Enemy, 1, _Created)
+AND
+DB_LO_TensionGroupBiasFactor("Low", _Bias)
+AND
+DB_LO_CurrentEnemyCreated(0, _OldEnemy)
+THEN
+//CharacterLevelUpTo(_Created, 5);
+NOT DB_LO_CurrentEnemyCreated(0, _OldEnemy);
+DB_LO_CurrentEnemyCreated(0, _Created);
+DebugBreak("Low Tension Group");
+ProcUpdateTensionStack(_Bias);
+
+QRY
+QrySpawnEnemyFromGroupAtTrigger((TRIGGERGUID)_Trigger, (INTEGER)_GroupIndex)
+AND
+_GroupIndex == 1
+AND
+SysCount("DB_MidTension", 3, _EnemyCount)
+AND
+Random(_EnemyCount, _RandomEnemyIndex)
+AND
+DB_MidTension(_RandomEnemyIndex, _, _Enemy)
+AND
+GetRandomPositionInTrigger(_Trigger, _X, _Y, _Z)
+AND
+CharacterCreateAtPosition(_X, _Y, _Z, _Enemy, 1, _Created)
+AND
+DB_LO_TensionGroupBiasFactor("Mid", _Bias)
+AND
+DB_LO_CurrentEnemyCreated(0, _OldEnemy)
+THEN
+//CharacterLevelUpTo(_Created, 5);
+NOT DB_LO_CurrentEnemyCreated(0, _OldEnemy);
+DB_LO_CurrentEnemyCreated(0, _Created);
+DebugBreak("Mid Tension Group");
+ProcUpdateTensionStack(_Bias);
+
+QRY
+QrySpawnEnemyFromGroupAtTrigger((TRIGGERGUID)_Trigger, (INTEGER)_GroupIndex)
+AND
+_GroupIndex == 2
+AND
+SysCount("DB_HighTension", 3, _EnemyCount)
+AND
+Random(_EnemyCount, _RandomEnemyIndex)
+AND
+DB_HighTension(_RandomEnemyIndex, _, _Enemy)
+AND
+GetRandomPositionInTrigger(_Trigger, _X, _Y, _Z)
+AND
+CharacterCreateAtPosition(_X, _Y, _Z, _Enemy, 1, _Created)
+AND
+DB_LO_TensionGroupBiasFactor("High", _Bias)
+AND
+DB_LO_CurrentEnemyCreated(0, _OldEnemy)
+THEN
+//CharacterLevelUpTo(_Created, 5);
+NOT DB_LO_CurrentEnemyCreated(0, _OldEnemy);
+DB_LO_CurrentEnemyCreated(0, _Created);
+DebugBreak("High Tension Group");
+ProcUpdateTensionStack(_Bias);
+
+PROC
+ProcUpdateTensionStack((INTEGER)_DeltaTension)
+AND
+DB_LO_DDAed_Stack(0, _Stack)
+AND
+IntegerSum(_Stack, _DeltaTension, _NewStack)
+AND
+QryPassedCheck("Stack calculated")
+AND
+IntegertoString(_NewStack, _NewStackString)
+AND
+StringConcatenate("Stack Shifted to ", _NewStackString, _DebugOut)
+THEN
+NOT DB_LO_DDAed_Stack(0, _Stack);
+DB_LO_DDAed_Stack(0, _NewStack);
+DebugBreak(_DebugOut);
+
+
+//update the current tension stack here
+
+EXITSECTION
+
+ENDEXITSECTION
+ParentTargetEdge "__Start"
